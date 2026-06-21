@@ -11,8 +11,10 @@ background, and push an initial commit with the folder structure and README.
 
 ### 1. Dev environment
 - Python virtual environment (`.venv`), Python 3.11+ (verified on 3.14).
-- Installed core libraries: `anthropic`, `langgraph` (1.2.6), `requests`,
-  `pydantic`, `pypdf`, `python-dotenv`. All import cleanly.
+- Installed core libraries: `langgraph` (1.2.6), `requests`, `pydantic`,
+  `pypdf`, `python-dotenv`. All import cleanly.
+- Claude is reached via the `claude` CLI (Claude Code) as a subprocess — no SDK
+  and no auth code in the app. The binary authenticates itself.
 - Project is an installable package (`pyproject.toml`, `src/` layout) with a
   `job-scout` console entry point reserved for later.
 - Secrets handled via `.env` (gitignored); `.env.example` documents every key.
@@ -21,10 +23,12 @@ background, and push an initial commit with the folder structure and README.
 - **Remotive API** (job postings): public, no auth. `scripts/verify_setup.py`
   pulls live postings successfully — e.g. *"Senior Independent AI Engineer /
   Architect"*. ✅ Working.
-- **Claude (Anthropic) API**: chosen as the LLM (latest model, native LangGraph
-  support, strong at structured scoring). Verification script has a live
-  ping-test; it currently **SKIPs** because the API key isn't installed yet.
-  → **Action item:** add `ANTHROPIC_API_KEY` to `.env` and re-run the check.
+- **Claude** (LLM for match scoring): integrated by shelling out to the `claude`
+  CLI, which authenticates from `~/.claude/.credentials.json` (subscription
+  login, auto-refreshed) — the same pattern as the existing tmobile-scout app.
+  Verification ran live and Claude replied `pong`. ✅ Working, no API key needed.
+  → **On the server (Zoidberg):** run `claude login` once and set `CLAUDE_PATH`
+  to the absolute binary path so cron/systemd can find it.
 - **Gmail SMTP** (email alerts): planned; credentials (App Password) to be set
   up in Week 4 when notifications are built.
 
@@ -39,6 +43,7 @@ agent-workflow/
 ├── scripts/verify_setup.py # data/API access check
 ├── src/job_scout/
 │   ├── config.py           # env-based configuration
+│   ├── claude_cli.py       # Claude via `claude` CLI subprocess (auth-free)
 │   ├── resume.py           # load résumé from PDF or text/markdown
 │   ├── remotive.py         # Remotive API client
 │   └── db.py               # SQLite: ranked jobs, alert dedup, tried queries
@@ -55,7 +60,10 @@ agent-workflow/
   agent's self-correcting query refinement.
 
 ## Key design decisions made this week
-- **LLM:** Claude (`claude-opus-4-8`) instead of the originally-proposed OpenAI.
+- **LLM:** Claude instead of the originally-proposed OpenAI.
+- **Claude auth:** call the `claude` CLI as a subprocess (no SDK, no auth code),
+  reusing the subscription login — mirrors the existing tmobile-scout app and
+  keeps the project key-free on a personal server.
 - **Persistence:** SQLite — needed so the agent remembers tried queries and
   doesn't re-alert on the same job between daily runs.
 - **Résumé input:** accept both PDF and plain text / Markdown.

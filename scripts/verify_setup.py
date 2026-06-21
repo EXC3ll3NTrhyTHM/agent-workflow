@@ -1,17 +1,24 @@
-"""Week 1 setup check: confirm the data source and the LLM API are reachable.
+"""Week 1 setup check: confirm the data source and Claude are reachable.
 
 Run:  python scripts/verify_setup.py
 
-- Remotive API is public (no key) and should always pass if you have internet.
-- The Claude check only runs if ANTHROPIC_API_KEY is set (in .env or the env).
+- Remotive API is public (no key) and should pass if you have internet.
+- Claude is reached via the `claude` CLI subprocess (same auth model as the
+  tmobile-scout app): the binary authenticates itself from
+  ~/.claude/.credentials.json (after `claude login`) or ANTHROPIC_API_KEY.
+  If the CLI isn't installed / logged in here, the check is skipped, not failed.
 """
 
 from __future__ import annotations
 
 import os
 import sys
+from pathlib import Path
 
 from dotenv import load_dotenv
+
+# Make `job_scout` importable without installing the package first.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 load_dotenv()
 
@@ -35,24 +42,44 @@ def check_remotive() -> bool:
 
 
 def check_claude() -> bool:
-    print("[2/2] Claude (Anthropic) API ...")
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("      SKIP — ANTHROPIC_API_KEY not set. Add it to .env to test.")
-        return True  # not a failure during setup week
+    print("[2/2] Claude CLI (subprocess auth) ...")
     try:
-        import anthropic
-
-        client = anthropic.Anthropic()
-        model = os.environ.get("JOB_SCOUT_MODEL", "claude-opus-4-8")
-        resp = client.messages.create(
-            model=model,
-            max_tokens=16,
-            messages=[{"role": "user", "content": "Reply with exactly: pong"}],
-        )
-        text = next((b.text for b in resp.content if b.type == "text"), "")
-        print(f"      OK — {model} replied: {text.strip()!r}")
+        from job_scout import claude_cli
+    except ImportError as exc:
+        print(f"      SKIP — package not importable ({exc})")
         return True
-    except Exception as exc:  # noqa: BLE001
+
+    # Is the binary even here? (It runs on your server; may be absent locally.)
+    try:
+        path = claude_cli.resolve_claude_path(os.environ.get("CLAUDE_PATH"))
+    except claude_cli.ClaudeError as exc:
+        print(f"      SKIP — {exc}")
+        return True
+
+    home = os.environ.get("CLAUDE_HOME")
+    print(f"      binary: {path}")
+
+    try:
+        reply = claude_cli.run_claude(
+            "Reply with exactly: pong",
+            claude_path=path,
+            home=home,
+            model=os.environ.get("JOB_SCOUT_MODEL") or None,
+            timeout=120,
+        )
+        print(f"      OK — Claude replied: {reply.splitlines()[0][:60]!r}")
+        return True
+    except claude_cli.ClaudeRateLimitError as exc:
+        print(f"      WARN — auth works but rate-limited/out of quota: {exc}")
+        return True
+    except claude_cli.ClaudeAuthError as exc:
+        if claude_cli.has_credentials(home):
+            print(f"      FAIL — credential present but Claude rejected it: {exc}")
+            return False
+        print("      SKIP — no Claude credential on this machine.")
+        print("             Run `claude login` here once (or set ANTHROPIC_API_KEY).")
+        return True
+    except claude_cli.ClaudeError as exc:
         print(f"      FAIL — {exc}")
         return False
 
