@@ -58,8 +58,32 @@ Concretely I added:
   right thing — it gives low scores because the jobs genuinely don't match. The
   bottleneck is *search recall* (the data source), not scoring or the loop. Good
   thing to learn on a baseline week: my weak link is the input, not the model.
-- No posting reached the 9/10 alert threshold in any run — expected, given the
-  candidate pool above. The threshold logic ran; it just had nothing to fire on.
+- No posting reached the 9/10 alert threshold in the *first* run — expected, given
+  the candidate pool above. The threshold logic ran; it just had nothing to fire on.
+
+## HOW I RESOLVED THE REMOTIVE ISSUE
+
+After the baseline I dug into *why* Remotive ignores the query. The `age` response
+header was **~38,000 seconds (~11 hours)** and every query returned the identical
+job ids — so it's a **stale CDN-cached response that never reaches Remotive's
+search backend.** Cache-busting (a unique `_=` param) didn't help; the CDN ignores
+unknown params. It's broken on their end, not mine — unfixable from the client.
+
+So I stopped relying on Remotive's server-side search and made the search tool
+**multi-source with client-side filtering**:
+- New `src/job_scout/remoteok.py` — pulls the RemoteOK public feed (~100 English
+  tech jobs, no auth).
+- New `src/job_scout/jobs.py` — fetches RemoteOK **and** Remotive once, merges and
+  deduplicates them into a ~130-job corpus (cached per run), then **filters
+  client-side by the query terms** (title matches weighted over tag/description).
+  A dead source can't break the run; the others still supply candidates.
+- `tools.search_jobs` now calls this aggregator instead of Remotive's search.
+
+**Result:** different queries now return different, relevant jobs, and the score
+spread widened across the 5 tasks — the ML-engineer résumé surfaced a *9.0* "Senior
+Independent AI Engineer / Architect" (the alert threshold fired for the first time)
+and the React résumé surfaced a 7.0 "Frontend Developer". Updated outputs are in
+`docs/baseline_outputs.md`.
 
 ## WHAT I LEARNED
 
@@ -78,26 +102,25 @@ Concretely I added:
 
 - Baseline outputs for all 5 test tasks: `docs/baseline_outputs.md`.
 - New code: `src/job_scout/tools.py`, `src/job_scout/agent.py`,
-  `src/job_scout/main.py`, `tests/fixtures/resume_*.md`, `scripts/run_baseline.py`.
+  `src/job_scout/main.py`, `src/job_scout/remoteok.py`, `src/job_scout/jobs.py`,
+  `tests/fixtures/resume_*.md`, `scripts/run_baseline.py`.
 - Run it: `python scripts/run_baseline.py` (or `job-scout <résumé>` for one).
 - Repo: https://github.com/EXC3ll3NTrhyTHM/agent-workflow
 
-Sample (Python-backend test task, Claude scoring):
+Sample (ML-engineer test task, multi-source corpus + Claude scoring):
 
 ```
- 5.0  Staff Product Engineer (São Paulo)      [claude]  backend overlap but full-stack & location-locked
- 3.0  Senior Quality Engineer (Florianópolis) [claude]  shares some Python/testing but different discipline
- 2.0  Senior Product Manager                  [claude]  not a hands-on backend role
- tried: fastapi microservices engineer, senior python backend
+ 9.0  Senior Independent AI Engineer / Architect  [claude]  strong senior remote LLM/ML fit
+ 3.0  Tech Lead Full-Stack Rails Engineer         [claude]  senior but Rails, not ML focus
+ 1.0  Senior Product Manager                      [claude]  not an ML engineering role
+ tried: machine learning engineer llm, nlp rag engineer
 ```
 
 ## PLAN FOR NEXT WEEK
 
-- **Fix search recall first** — it's the real bottleneck. Confirm whether Remotive
-  is throttling me (back off / cache) or whether I need to switch endpoints, and add
-  a second job source (e.g. RemoteOK / Hacker News "Who is hiring") so the agent has
-  a real candidate pool to rank. Re-run the 5 test tasks and expect the spread of
-  scores to widen.
+- ~~Fix search recall~~ — **done.** Replaced Remotive's broken server-side search
+  with a multi-source (RemoteOK + Remotive) corpus + client-side filtering. Next:
+  add a third source (Arbeitnow or HN "Who is hiring") and tune the relevance filter.
 - Build the **email-alert step** (Week 4 on the roadmap): wire Gmail SMTP so a
   ≥ threshold match sends a notification, using the existing `mark_alerted` dedup.
 - Start the **score-stability check** I flagged in Week 2 — run the same résumé

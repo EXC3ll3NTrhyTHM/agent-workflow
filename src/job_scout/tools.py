@@ -17,8 +17,8 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from . import claude_cli
-from .remotive import Job, search_jobs as _remotive_search
+from . import claude_cli, jobs as _jobs
+from .remotive import Job
 
 # Words too generic to make a useful job-board query or overlap signal.
 _STOPWORDS = {
@@ -33,12 +33,13 @@ _STOPWORDS = {
 # Tool 1: search the web for jobs (Remotive — public, no auth).
 # --------------------------------------------------------------------------- #
 def search_jobs(query: str, *, limit: int = 8) -> list[Job]:
-    """Search Remotive for postings matching `query`. Thin wrapper for symmetry
-    with the other tools and so the agent loop has one obvious call site.
+    """Search the aggregated job corpus (RemoteOK + Remotive) for `query`.
 
-    Remotive's own `limit` param is unreliable for `search` queries (it can return
-    far more), so we hard-cap the list here to keep the scoring prompt bounded."""
-    return _remotive_search(search=query, limit=limit)[:limit]
+    Filtering happens client-side in ``jobs.search`` because Remotive's server-
+    side search is currently broken (stale CDN cache, see ``jobs.py``). The
+    corpus is fetched once per process and re-filtered per query, so the agent's
+    refinement loop can try several queries cheaply."""
+    return _jobs.search(query, limit=limit)
 
 
 # --------------------------------------------------------------------------- #

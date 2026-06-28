@@ -110,6 +110,7 @@ Verify the setup on any host: `python scripts/verify_setup.py`
 ## Status
 
 🚧 Baseline runs end-to-end (Week 3): résumé → search → score → ranked list.
-Run it with `python scripts/run_baseline.py` (or `job-scout <résumé>`). Current
-known limitation: the Remotive public API is returning a small fixed result set
-regardless of the search query — see `docs/weekly-progress-report.md`.
+Run it with `python scripts/run_baseline.py` (or `job-scout <résumé>`). Job data
+comes from a multi-source corpus (RemoteOK + Remotive) filtered client-side,
+after Remotive's own search API was found to be serving a stale CDN cache that
+ignores the query — see `docs/weekly-progress-report.md`.
