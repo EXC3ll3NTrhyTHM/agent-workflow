@@ -109,4 +109,7 @@ Verify the setup on any host: `python scripts/verify_setup.py`
 
 ## Status
 
-🚧 Early development — project scaffolding in progress.
+🚧 Baseline runs end-to-end (Week 3): résumé → search → score → ranked list.
+Run it with `python scripts/run_baseline.py` (or `job-scout <résumé>`). Current
+known limitation: the Remotive public API is returning a small fixed result set
+regardless of the search query — see `docs/weekly-progress-report.md`.
