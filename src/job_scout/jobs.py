@@ -10,14 +10,16 @@ degrading — if one feed is down or cached, the others still provide candidates
 
 Sources (all public, no auth):
 - RemoteOK  — primary; English, tech-focused, ~100 jobs/feed.
-- Remotive  — secondary; degraded (see above) but still adds ~34 candidates.
+- Jobicy    — secondary; English, remote-only, ~100 jobs/feed with structured
+              industry/level tags.
+- Remotive  — tertiary; degraded (see above) but still adds ~32 candidates.
 """
 
 from __future__ import annotations
 
 import re
 
-from . import remoteok, remotive
+from . import jobicy, remoteok, remotive
 from .remotive import Job
 
 # Process-level cache: the agent re-queries the corpus once per round with a
@@ -36,7 +38,7 @@ def load_corpus(*, force: bool = False) -> list[Job]:
         return _corpus
 
     jobs: list[Job] = []
-    for fetch in (_safe(remoteok.fetch_jobs), _safe(_remotive_all)):
+    for fetch in (_safe(remoteok.fetch_jobs), _safe(jobicy.fetch_jobs), _safe(_remotive_all)):
         jobs.extend(fetch())
 
     seen: set[tuple[str, str]] = set()
@@ -55,26 +57,35 @@ def load_corpus(*, force: bool = False) -> list[Job]:
 def search(query: str, *, limit: int = 8) -> list[Job]:
     """Return up to `limit` jobs from the corpus most relevant to `query`.
 
-    Relevance = number of distinct query terms found in the job's title, tags,
-    or description (title hits weighted higher). If nothing matches, returns the
-    head of the corpus so the pipeline still produces candidates."""
+    Ranking: jobs are ordered first by how many distinct query terms hit the
+    high-signal fields (title, tags), then by a weighted total that includes
+    description hits. Terms match at word starts only ("api" matches "APIs"
+    but not "therapist"; "ml" matches "MLOps" but not "html") — plain substring
+    matching let generic postings outrank real matches. If nothing matches,
+    returns the head of the corpus so the pipeline still produces candidates."""
     corpus = load_corpus()
     terms = [t for t in _terms(query) if t not in _STOPWORDS]
     if not terms:
         return corpus[:limit]
+    patterns = [re.compile(rf"(?<![a-z0-9]){re.escape(t)}") for t in terms]
 
-    ranked: list[tuple[int, Job]] = []
+    ranked: list[tuple[int, int, Job]] = []
     for job in corpus:
         title = job.title.lower()
-        body = f"{job.category} {job.description}".lower()
-        score = sum(2 for t in terms if t in title) + sum(1 for t in terms if t in body)
+        tags = job.category.lower()
+        body = job.description.lower()
+        title_hits = sum(1 for p in patterns if p.search(title))
+        tag_hits = sum(1 for p in patterns if p.search(tags))
+        body_hits = sum(1 for p in patterns if p.search(body))
+        strong = title_hits + tag_hits
+        score = 3 * title_hits + 2 * tag_hits + body_hits
         if score:
-            ranked.append((score, job))
+            ranked.append((strong, score, job))
 
     if not ranked:
         return corpus[:limit]
-    ranked.sort(key=lambda pair: pair[0], reverse=True)
-    return [job for _, job in ranked[:limit]]
+    ranked.sort(key=lambda entry: (entry[0], entry[1]), reverse=True)
+    return [job for _, _, job in ranked[:limit]]
 
 
 def _remotive_all() -> list[Job]:

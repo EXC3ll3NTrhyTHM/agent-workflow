@@ -6,7 +6,7 @@ An AI agent that reads an uploaded résumé and searches the web for jobs that m
 
 ## Overview
 
-The job market is competitive, and manually scanning job boards is slow and repetitive. Job Scout Agent automates the search: it uses your résumé as the search criteria, queries job boards on a schedule, ranks every posting by how well it matches you, and surfaces the best ones. When a posting is an exceptional match (9/10 or higher), it sends you an email alert so you can review and apply.
+The job market is competitive, and manually scanning job boards is slow and repetitive. Job Scout Agent automates the search: it uses your résumé as the search criteria, queries job boards on a schedule, ranks every posting by how well it matches you, and surfaces the best ones. When a posting is an exceptional match (8/10 or higher), it sends you an email alert so you can review and apply.
 
 If a search doesn't return enough good results, the agent adjusts its own search criteria and tries again — while remembering which queries it has already run so it doesn't repeat itself.
 
@@ -19,8 +19,8 @@ Job seekers who want **passive, high-signal** job discovery: good-quality matche
 ```
 ┌─────────────┐     ┌──────────────┐     ┌───────────────┐     ┌──────────────┐
 │   Résumé    │────▶│  Search jobs │────▶│  Rank each    │────▶│  Decision:   │
-│  (uploaded) │     │ (Remotive    │     │  posting vs.  │     │  email alert │
-│             │     │  API)        │     │  résumé (LLM) │     │  or list only│
+│  (uploaded) │     │ (multi-source│     │  posting vs.  │     │  email alert │
+│             │     │  corpus)     │     │  résumé (LLM) │     │  or list only│
 └─────────────┘     └──────────────┘     └───────────────┘     └──────────────┘
                            ▲                                            │
                            │      not enough good results?              │
@@ -30,9 +30,9 @@ Job seekers who want **passive, high-signal** job discovery: good-quality matche
 
 The workflow runs daily (target: 6am):
 
-1. **Query** the Remotive API for remote job postings.
+1. **Query** the aggregated job corpus (RemoteOK + Jobicy + Remotive feeds, searched client-side) for remote postings.
 2. **Rank** each posting against the résumé with an LLM, producing a 0–10 match score.
-3. **Decide** per posting: if the score is ≥ 9, send an email alert; otherwise add it to the ranked listing in the UI.
+3. **Decide** per posting: if the score is ≥ 8, send an email alert (deduped — never twice for the same posting); otherwise add it to the ranked listing.
 4. **Refine** if results are insufficient: adjust the search criteria and re-query, tracking already-tried queries to avoid repeats.
 
 ## Tech Stack
@@ -42,7 +42,7 @@ The workflow runs daily (target: 6am):
 | Agent orchestration | [LangGraph](https://langchain-ai.github.io/langgraph/) |
 | Backend | Python |
 | LLM | [Claude](https://www.anthropic.com/claude), called via the `claude` CLI (Claude Code) as a subprocess |
-| Job data | [Remotive API](https://remotive.com/api/remote-jobs) (public, no auth) |
+| Job data | [RemoteOK](https://remoteok.com/api) + [Jobicy](https://jobicy.com/jobs-rss-feed) + [Remotive](https://remotive.com/api/remote-jobs) feeds (public, no auth), merged and searched client-side |
 | State | SQLite (tried queries, alerted jobs, ranked listings) |
 | Email | Gmail SMTP |
 | Résumé | Local file uploaded by the user (PDF or plain text / Markdown) |
@@ -103,14 +103,18 @@ Verify the setup on any host: `python scripts/verify_setup.py`
 
 ## Data & API Access
 
-- **Remotive API** — public, no authentication required.
-- **Gmail SMTP** — public server; requires app credentials to be configured.
+- **RemoteOK / Jobicy / Remotive APIs** — public, no authentication required.
+- **Gmail SMTP** — public server; requires app credentials to be configured
+  (`GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`, `ALERT_RECIPIENT`; without them the
+  alert step runs in dry-run mode and prints the email instead of sending).
 - **Résumé** — local file provided by the user.
 
 ## Status
 
-🚧 Baseline runs end-to-end (Week 3): résumé → search → score → ranked list.
-Run it with `python scripts/run_baseline.py` (or `job-scout <résumé>`). Job data
-comes from a multi-source corpus (RemoteOK + Remotive) filtered client-side,
-after Remotive's own search API was found to be serving a stale CDN cache that
-ignores the query — see `docs/weekly-progress-report.md`.
+🚧 Midpoint (Week 4): résumé → search → score → ranked list → email alert, end
+to end. Run it with `python scripts/run_baseline.py` (or `job-scout <résumé>`).
+Job data comes from a three-source corpus (RemoteOK + Jobicy + Remotive)
+filtered client-side, after Remotive's own search API was found to be serving a
+stale CDN cache that ignores the query — see `docs/week-4-midpoint.md` for the
+midpoint evidence (recall before/after, score-stability results) and
+`docs/weekly-progress-report.md` for the Week 3 write-up.

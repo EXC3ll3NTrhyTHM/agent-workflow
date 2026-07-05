@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import sys
 
+from . import alerts, db
 from .agent import run_agent
 from .config import Config
 from .resume import load_resume
@@ -26,7 +27,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Could not load résumé: {exc}", file=sys.stderr)
         return 1
 
-    print(f"Job Scout — scoring against {resume_path}\n")
+    print(f"Job Scout — scoring against {resume_path}\n", flush=True)
     result = run_agent(
         resume_text,
         resume_label=resume_path,
@@ -35,7 +36,9 @@ def main(argv: list[str] | None = None) -> int:
         claude_path=cfg.claude_path,
         home=cfg.claude_home,
         model=cfg.model,
+        verbose=True,
     )
+    print()
 
     print(f"Tried queries: {', '.join(result.tried_queries)}")
     print(f"Postings seen: {len(result.scored)}\n")
@@ -48,6 +51,12 @@ def main(argv: list[str] | None = None) -> int:
         print(f"\n{len(result.alerts)} alert-worthy (>= {cfg.alert_threshold}):")
         for s in result.alerts:
             print(f"  {s.score:4.1f}  {s.job.title}  @ {s.job.company}")
+        with db.connect(cfg.db_path) as conn:
+            sent = alerts.send_alerts(cfg, result.alerts, conn)
+        if sent:
+            print(f"\nEmail alert covered {len(sent)} new posting(s).")
+        else:
+            print("\nAll alert-worthy postings were already alerted on — no email.")
     else:
         print(f"\nNo postings reached the alert threshold ({cfg.alert_threshold}).")
     return 0

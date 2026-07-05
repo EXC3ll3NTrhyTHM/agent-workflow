@@ -30,10 +30,10 @@ _STOPWORDS = {
 
 
 # --------------------------------------------------------------------------- #
-# Tool 1: search the web for jobs (Remotive — public, no auth).
+# Tool 1: search the web for jobs (aggregated public feeds, no auth).
 # --------------------------------------------------------------------------- #
 def search_jobs(query: str, *, limit: int = 8) -> list[Job]:
-    """Search the aggregated job corpus (RemoteOK + Remotive) for `query`.
+    """Search the aggregated job corpus (RemoteOK + Jobicy + Remotive) for `query`.
 
     Filtering happens client-side in ``jobs.search`` because Remotive's server-
     side search is currently broken (stale CDN cache, see ``jobs.py``). The

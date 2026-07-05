@@ -49,7 +49,7 @@ def run_agent(
     *,
     resume_label: str = "résumé",
     db_path: str | None = None,
-    alert_threshold: float = 9.0,
+    alert_threshold: float = 8.0,
     good_threshold: float = 7.0,
     target_good: int = 3,
     max_rounds: int = 3,
@@ -57,14 +57,18 @@ def run_agent(
     claude_path: str | None = None,
     home: str | None = None,
     model: str | None = None,
+    verbose: bool = False,
 ) -> AgentResult:
     """Run the search→score→decide→refine loop for a single résumé.
 
     `good_threshold` is the bar for "worth surfacing"; `target_good` is how many
     such matches end the search early. `alert_threshold` is the (higher) bar an
     email alert would use. Persistence is optional — pass `db_path` to record the
-    ranked jobs and tried queries to SQLite (so daily runs don't repeat work)."""
+    ranked jobs and tried queries to SQLite (so daily runs don't repeat work).
+    `verbose` streams progress to stdout — the Claude calls take tens of seconds
+    each, so an interactive run is silent for minutes without it."""
 
+    say = (lambda *a: print(*a, flush=True)) if verbose else (lambda *a: None)
     seen: dict[int, ScoredJob] = {}
     tried: set[str] = set()
     rounds: list[RoundLog] = []
@@ -72,12 +76,14 @@ def run_agent(
     conn_cm = db.connect(db_path) if db_path else None
     conn = conn_cm.__enter__() if conn_cm else None
     try:
+        say("deriving a search query from the résumé (Claude, ~10-30s)...")
         query = tools.derive_query(
             resume_text, tried=tried, claude_path=claude_path, home=home, model=model
         )
-        for _ in range(max_rounds):
+        for round_no in range(1, max_rounds + 1):
             query_key = query.strip().lower()
             if query_key in tried:  # agent's memory: never repeat a query
+                say(f"  {query!r} was already tried — deriving another (Claude, ~10-30s)...")
                 query = tools.derive_query(
                     resume_text, tried=tried, claude_path=claude_path,
                     home=home, model=model,
@@ -89,7 +95,9 @@ def run_agent(
             if conn is not None:
                 db.record_query(conn, query)
 
+            say(f"round {round_no}/{max_rounds}: searching the job corpus for {query!r}...")
             jobs = tools.search_jobs(query, limit=jobs_per_round)
+            say(f"  {len(jobs)} candidates — scoring against the résumé (Claude, ~30-60s)...")
             scored = tools.score_jobs(
                 resume_text, jobs, claude_path=claude_path, home=home, model=model
             )
@@ -107,11 +115,17 @@ def run_agent(
             n_good = sum(1 for s in seen.values() if s.score >= good_threshold)
             scorer = scored[0].source if scored else "fallback"
             rounds.append(RoundLog(query, len(jobs), n_good, scorer))
+            best = max((s.score for s in seen.values()), default=0.0)
+            say(f"  scored [{scorer}]: {n_good} good match(es) >= {good_threshold} "
+                f"so far (best {best:.1f})")
 
             if n_good >= target_good:
+                say(f"  target of {target_good} good matches reached — stopping early")
                 break  # enough good matches — stop early
 
             # Self-correct: derive a different query for the next round.
+            if round_no < max_rounds:
+                say("  not enough good matches — deriving a fresh query (Claude, ~10-30s)...")
             query = tools.derive_query(
                 resume_text, tried=tried, claude_path=claude_path,
                 home=home, model=model,
