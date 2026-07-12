@@ -11,6 +11,9 @@ venv/
 # Environment / secrets
 .env
 
+# Scheduled-run logs (launchd)
+logs/
+
 # Local data (résumés, SQLite db)
 data/*.db
 data/*.pdf

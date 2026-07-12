@@ -28,12 +28,31 @@ Job seekers who want **passive, high-signal** job discovery: good-quality matche
                               adjust criteria, avoid repeating queries
 ```
 
-The workflow runs daily (target: 6am):
+The scan workflow runs nightly (07:30, via launchd):
 
 1. **Query** the aggregated job corpus (RemoteOK + Jobicy + Remotive feeds, searched client-side) for remote postings.
 2. **Rank** each posting against the résumé with an LLM, producing a 0–10 match score.
 3. **Decide** per posting: if the score is ≥ 8, send an email alert (deduped — never twice for the same posting); otherwise add it to the ranked listing.
-4. **Refine** if results are insufficient: adjust the search criteria and re-query, tracking already-tried queries to avoid repeats.
+4. **Pitch**: for each posting that makes the alert email, the LLM drafts three
+   "why I'm a fit" bullets grounded in the résumé, included in the email.
+5. **Refine** if results are insufficient: adjust the search criteria and re-query, tracking already-tried queries to avoid repeats.
+
+A second, cheaper workflow runs weekly (Sunday 17:00): `job-scout --digest`
+emails a recap of everything scored ≥ 6.5 since the last digest — the
+instant alerts you already got, plus the borderline "worth a look" matches
+that never tripped one. It reads only the SQLite state (no scanning, no LLM).
+
+### Scheduling
+
+```sh
+./scripts/install_launchd.sh    # nightly scan + weekly digest as launchd agents
+./scripts/uninstall_launchd.sh  # remove both
+```
+
+launchd rather than cron so a run whose time passed while the laptop was
+asleep fires on wake instead of being skipped. Logs go to `logs/scan.log` and
+`logs/digest.log`; trigger a run immediately with
+`launchctl kickstart gui/$(id -u)/com.jobscout.scan`.
 
 ## Tech Stack
 
@@ -111,8 +130,15 @@ Verify the setup on any host: `python scripts/verify_setup.py`
 
 ## Status
 
-🚧 Midpoint (Week 4): résumé → search → score → ranked list → email alert, end
-to end. Run it with `python scripts/run_baseline.py` (or `job-scout <résumé>`).
+🚧 Week 5: the agent now runs itself. Nightly scheduled scan + instant alerts
+with LLM-drafted "why I'm a fit" pitches, and a weekly digest
+(`job-scout --digest`) covering the borderline matches (≥ 6.5) that never
+tripped an instant alert. Run a scan with `job-scout` (or
+`python scripts/run_baseline.py` for the fixture suite); tests in `tests/`
+run offline with `pytest`.
+
+Earlier: Week 4 midpoint — résumé → search → score → ranked list → email alert,
+end to end.
 Job data comes from a three-source corpus (RemoteOK + Jobicy + Remotive)
 filtered client-side, after Remotive's own search API was found to be serving a
 stale CDN cache that ignores the query — see `docs/week-4-midpoint.md` for the

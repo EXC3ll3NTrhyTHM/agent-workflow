@@ -194,6 +194,48 @@ def _fallback_query(resume_text: str, tried: set[str]) -> str:
 
 
 # --------------------------------------------------------------------------- #
+# Tool 4: draft a "why I'm a fit" pitch for an alert-worthy posting (Claude).
+# --------------------------------------------------------------------------- #
+def draft_pitch(
+    resume_text: str,
+    job: Job,
+    *,
+    claude_path: str | None = None,
+    home: str | None = None,
+    model: str | None = None,
+) -> str | None:
+    """Draft three short bullets arguing why the candidate fits this posting.
+
+    Returns None when Claude is unavailable — unlike scoring there is no
+    fallback here, because a templated pitch is worse than no pitch. Callers
+    must treat the pitch as optional garnish on the alert, never a gate."""
+    desc = re.sub(r"<[^>]+>", " ", job.description)
+    desc = re.sub(r"\s+", " ", desc).strip()[:1500]
+    prompt = (
+        "You are helping a candidate decide whether to apply to a job. Using "
+        "ONLY facts present in the résumé, write exactly 3 short bullets (one "
+        "sentence each) on why they are a strong fit for this posting. Be "
+        "specific — name the overlapping skills/domains, do not invent "
+        "experience.\n\n"
+        'Respond with ONLY JSON, no prose: {"bullets": ["...", "...", "..."]}\n\n'
+        f"=== RÉSUMÉ ===\n{resume_text.strip()}\n\n"
+        f"=== JOB ===\nTitle: {job.title}\nCompany: {job.company}\n"
+        f"Description: {desc}\n"
+    )
+    try:
+        raw = claude_cli.run_claude(
+            prompt, claude_path=claude_path, home=home, model=model, timeout=120
+        )
+        bullets = claude_cli.extract_json(raw).get("bullets", [])
+        bullets = [str(b).strip() for b in bullets if str(b).strip()][:3]
+        if bullets:
+            return "\n".join(f"- {b}" for b in bullets)
+    except (claude_cli.ClaudeError, ValueError, KeyError):
+        pass
+    return None
+
+
+# --------------------------------------------------------------------------- #
 # Small text helpers.
 # --------------------------------------------------------------------------- #
 def _tokens(text: str) -> list[str]:

@@ -20,6 +20,9 @@ class Config:
     # run-to-run, so a 9.0 bar makes borderline-excellent jobs alert only on
     # lucky days (see docs/week-4-midpoint.md, Failure 3).
     alert_threshold: float
+    # Weekly digest covers everything from this floor up — the 6.5-8 band that
+    # is worth a look but never trips an instant alert.
+    digest_floor: float
     # Gmail SMTP
     gmail_address: str
     gmail_app_password: str
@@ -35,6 +38,7 @@ class Config:
             claude_path=os.environ.get("CLAUDE_PATH") or None,
             claude_home=os.environ.get("CLAUDE_HOME") or None,
             alert_threshold=float(os.environ.get("ALERT_THRESHOLD", "8")),
+            digest_floor=float(os.environ.get("DIGEST_FLOOR", "6.5")),
             gmail_address=os.environ.get("GMAIL_ADDRESS", ""),
             gmail_app_password=os.environ.get("GMAIL_APP_PASSWORD", ""),
             alert_recipient=os.environ.get("ALERT_RECIPIENT", ""),

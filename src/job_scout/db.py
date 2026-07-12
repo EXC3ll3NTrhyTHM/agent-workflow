@@ -28,7 +28,19 @@ CREATE TABLE IF NOT EXISTS tried_queries (
     query     TEXT PRIMARY KEY,
     tried_at  TEXT NOT NULL DEFAULT (datetime('now'))
 );
+
+CREATE TABLE IF NOT EXISTS meta (
+    key    TEXT PRIMARY KEY,               -- e.g. 'last_digest_at'
+    value  TEXT NOT NULL
+);
 """
+
+
+def _migrate(conn: sqlite3.Connection) -> None:
+    """Additive column migrations — executescript can't alter existing tables."""
+    cols = {row["name"] for row in conn.execute("PRAGMA table_info(jobs)")}
+    if "pitch" not in cols:
+        conn.execute("ALTER TABLE jobs ADD COLUMN pitch TEXT")
 
 
 @contextmanager
@@ -38,6 +50,7 @@ def connect(db_path: str | Path) -> Iterator[sqlite3.Connection]:
     conn.row_factory = sqlite3.Row
     try:
         conn.executescript(_SCHEMA)
+        _migrate(conn)
         yield conn
         conn.commit()
     finally:
@@ -92,4 +105,40 @@ def query_already_tried(conn: sqlite3.Connection, query: str) -> bool:
 def ranked_listings(conn: sqlite3.Connection, limit: int = 50) -> list[sqlite3.Row]:
     return conn.execute(
         "SELECT * FROM jobs ORDER BY score DESC, last_scored DESC LIMIT ?", (limit,)
+    ).fetchall()
+
+
+def set_pitch(conn: sqlite3.Connection, job_id: int, pitch: str) -> None:
+    conn.execute("UPDATE jobs SET pitch = ? WHERE id = ?", (pitch, job_id))
+
+
+def get_meta(conn: sqlite3.Connection, key: str) -> str | None:
+    row = conn.execute("SELECT value FROM meta WHERE key = ?", (key,)).fetchone()
+    return row["value"] if row else None
+
+
+def set_meta(conn: sqlite3.Connection, key: str, value: str) -> None:
+    conn.execute(
+        "INSERT INTO meta (key, value) VALUES (?, ?) "
+        "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+        (key, value),
+    )
+
+
+def utcnow(conn: sqlite3.Connection) -> str:
+    """SQLite's clock, so meta timestamps compare cleanly with first_seen."""
+    return conn.execute("SELECT datetime('now') AS now").fetchone()["now"]
+
+
+def jobs_for_digest(
+    conn: sqlite3.Connection, *, since: str | None, floor: float
+) -> list[sqlite3.Row]:
+    """Jobs at/above `floor` first seen after `since` (all history if None)."""
+    if since is None:
+        return conn.execute(
+            "SELECT * FROM jobs WHERE score >= ? ORDER BY score DESC", (floor,)
+        ).fetchall()
+    return conn.execute(
+        "SELECT * FROM jobs WHERE score >= ? AND first_seen > ? ORDER BY score DESC",
+        (floor, since),
     ).fetchall()
