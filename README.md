@@ -28,7 +28,7 @@ Job seekers who want **passive, high-signal** job discovery: good-quality matche
                               adjust criteria, avoid repeating queries
 ```
 
-The scan workflow runs nightly (07:30, via launchd):
+The scan workflow runs nightly (07:30, scheduled on the home server):
 
 1. **Query** the aggregated job corpus (RemoteOK + Jobicy + Remotive feeds, searched client-side) for remote postings.
 2. **Rank** each posting against the résumé with an LLM, producing a 0–10 match score.
@@ -44,15 +44,25 @@ that never tripped one. It reads only the SQLite state (no scanning, no LLM).
 
 ### Scheduling
 
+The intended host is an always-on home server, scheduled with cron:
+
 ```sh
-./scripts/install_launchd.sh    # nightly scan + weekly digest as launchd agents
-./scripts/uninstall_launchd.sh  # remove both
+./scripts/install_cron.sh       # nightly scan + weekly digest as cron jobs
+crontab -l | grep -v '# job-scout' | crontab -   # remove them
 ```
 
-launchd rather than cron so a run whose time passed while the laptop was
-asleep fires on wake instead of being skipped. Logs go to `logs/scan.log` and
-`logs/digest.log`; trigger a run immediately with
-`launchctl kickstart gui/$(id -u)/com.jobscout.scan`.
+For running on a laptop instead, use the launchd variant — cron silently
+skips runs whose time passes while the machine is asleep, launchd fires
+them on wake:
+
+```sh
+./scripts/install_launchd.sh    # macOS laptop alternative
+./scripts/uninstall_launchd.sh  # remove both agents
+```
+
+Either way, logs go to `logs/scan.log` and `logs/digest.log`. Run on ONE
+host only: dedup state lives in the host's own SQLite file, so two hosts
+send duplicate alerts.
 
 ## Tech Stack
 
