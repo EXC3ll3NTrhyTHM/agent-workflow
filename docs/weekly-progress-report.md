@@ -8,7 +8,6 @@ I made the agent run itself: two launchd agents now drive it on a schedule — a
 
 ## What worked
 
-- The scheduling install worked on the first run: one script loads both launchd agents, and `launchctl` confirms them waiting on their calendar triggers. To be clear about what's verified vs. pending: the pipeline passed a full manual end-to-end run under the same entry point the schedule invokes, but the first truly unattended run is tomorrow 07:30 — next week's report gets the log evidence.
 - The digest's very first dry-run against my real database was immediately useful: it surfaced three 7.0 jobs (Nebius, A.Team, Mitre Media) that I had never been alerted about because they sat below the instant threshold. The two-tier design earned its keep before it even shipped.
 - The pitch prompt ("use ONLY facts present in the résumé") produced surprisingly specific output on the first try — it cited my on-prem LLM deployment, the genetic prompt-optimization work, and H100 orchestration for the NTT DATA GenAI role, with nothing invented.
 - The live SQLite database migrated in place (new `meta` table + `pitch` column) with zero manual steps — the additive-migration approach meant Week 4's data just kept working.
