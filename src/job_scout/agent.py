@@ -29,6 +29,7 @@ class RoundLog:
     n_jobs: int
     n_good: int
     scorer: str  # "claude" or "fallback" — which path scored this round
+    job_ids: list[int] = field(default_factory=list)  # postings this round surfaced
 
 
 @dataclass
@@ -114,7 +115,8 @@ def run_agent(
 
             n_good = sum(1 for s in seen.values() if s.score >= good_threshold)
             scorer = scored[0].source if scored else "fallback"
-            rounds.append(RoundLog(query, len(jobs), n_good, scorer))
+            rounds.append(RoundLog(query, len(jobs), n_good, scorer,
+                                   [j.id for j in jobs]))
             best = max((s.score for s in seen.values()), default=0.0)
             say(f"  scored [{scorer}]: {n_good} good match(es) >= {good_threshold} "
                 f"so far (best {best:.1f})")
@@ -123,13 +125,16 @@ def run_agent(
                 say(f"  target of {target_good} good matches reached — stopping early")
                 break  # enough good matches — stop early
 
-            # Self-correct: derive a different query for the next round.
+            # Self-correct: derive a different query for the next round. Skipped
+            # on the last round — the eval harness caught that deriving here too
+            # burned one Claude call per full-length run whose result was never
+            # used (docs/evaluation.md, step efficiency).
             if round_no < max_rounds:
                 say("  not enough good matches — deriving a fresh query (Claude, ~10-30s)...")
-            query = tools.derive_query(
-                resume_text, tried=tried, claude_path=claude_path,
-                home=home, model=model,
-            )
+                query = tools.derive_query(
+                    resume_text, tried=tried, claude_path=claude_path,
+                    home=home, model=model,
+                )
     finally:
         if conn_cm is not None:
             conn_cm.__exit__(None, None, None)

@@ -1,0 +1,89 @@
+{
+  "_comment": "Week 6 evaluation test set. Each case pairs a résumé fixture with an explicit relevance rubric the LLM judge applies to every job the agent surfaced. The rubric is deliberately independent of the agent's own 0-10 scoring prompt so the judge is not grading with the same instrument.",
+  "cases": [
+    {
+      "id": "python_backend",
+      "fixture": "resume_python_backend.md",
+      "profile": "Senior Python backend engineer (FastAPI/Django, PostgreSQL, Kubernetes)",
+      "relevant": "Backend, platform, or full-stack roles where Python server-side work is central; senior/lead level acceptable down to mid-level. API, microservices, or infrastructure-adjacent backend roles count.",
+      "not_relevant": "Frontend-only roles, data-science roles, roles centred on a different backend stack with no Python (e.g. pure Java/.NET), non-engineering roles, junior/intern-only roles."
+    },
+    {
+      "id": "react_frontend",
+      "fixture": "resume_react_frontend.md",
+      "profile": "Senior frontend engineer (React, TypeScript, Next.js, accessibility)",
+      "relevant": "Frontend or full-stack-leaning-frontend roles using React or an adjacent modern JS framework; senior or mid level.",
+      "not_relevant": "Backend-only, mobile-native-only, designer-only roles, WordPress/site-builder gigs, non-engineering roles."
+    },
+    {
+      "id": "data_analyst",
+      "fixture": "resume_data_analyst.md",
+      "profile": "Data analyst (SQL, Tableau/Power BI, A/B testing)",
+      "relevant": "Data analyst, analytics, BI, or reporting roles centred on SQL and dashboards/experimentation; business-facing analytics counts.",
+      "not_relevant": "Data engineering or ML engineering roles requiring heavy software engineering, pure data-entry roles, marketing roles without an analytics core, non-data roles."
+    },
+    {
+      "id": "devops_sre",
+      "fixture": "resume_devops_sre.md",
+      "profile": "SRE/DevOps engineer (Kubernetes, Terraform, AWS/GCP, observability)",
+      "relevant": "SRE, DevOps, platform, cloud, or infrastructure engineering roles; on-call/reliability or IaC-centred roles count.",
+      "not_relevant": "Pure application development roles, IT helpdesk/support, security-only roles, non-engineering roles."
+    },
+    {
+      "id": "ml_engineer",
+      "fixture": "resume_ml_engineer.md",
+      "profile": "ML engineer (PyTorch, LLMs, RAG, MLOps)",
+      "relevant": "Machine learning, LLM/AI engineering, MLOps, or applied data-science roles where building/deploying models is central.",
+      "not_relevant": "Pure data-analyst roles (SQL/BI only), general backend roles with no ML component, AI product-manager or sales roles, annotation/labeling gigs."
+    },
+    {
+      "id": "mobile_dev",
+      "fixture": "resume_mobile_dev.md",
+      "profile": "Mobile engineer (Swift/SwiftUI, Kotlin, React Native)",
+      "relevant": "iOS, Android, cross-platform (React Native/Flutter acceptable), or mobile-leading full-stack roles; senior or mid level.",
+      "not_relevant": "Web-frontend-only roles, backend-only roles, QA-only roles, non-engineering roles."
+    },
+    {
+      "id": "security_engineer",
+      "fixture": "resume_security_engineer.md",
+      "profile": "Security engineer (AppSec, cloud security, incident response)",
+      "relevant": "Security engineering, application security, cloud security, DevSecOps, or security-analyst roles.",
+      "not_relevant": "General SWE/DevOps roles with no security focus, physical-security roles, compliance-only paperwork roles with no technical component, non-engineering roles."
+    },
+    {
+      "id": "data_engineer",
+      "fixture": "resume_data_engineer.md",
+      "profile": "Data engineer (Spark, Airflow, dbt, Snowflake/BigQuery, Kafka)",
+      "relevant": "Data engineering, analytics engineering, or data-platform roles centred on pipelines, warehousing, or streaming.",
+      "not_relevant": "Pure BI/analyst roles with no pipeline building, ML-research roles, general backend roles with no data-pipeline component, non-engineering roles."
+    },
+    {
+      "id": "qa_automation",
+      "fixture": "resume_qa_automation.md",
+      "profile": "QA automation engineer / SDET (Playwright, Selenium, Cypress)",
+      "relevant": "QA automation, SDET, or test-engineering roles; QA roles that mix manual + automation count if automation is present.",
+      "not_relevant": "Purely manual QA roles with no automation, developer roles with no testing focus, customer support, non-engineering roles."
+    },
+    {
+      "id": "product_manager",
+      "fixture": "resume_product_manager.md",
+      "profile": "Senior product manager (B2B SaaS, developer/data products)",
+      "relevant": "Product manager or product owner roles in software, ideally B2B/SaaS/technical products; senior or mid level.",
+      "not_relevant": "Project-manager/scrum-master roles, engineering roles, marketing or sales roles, non-software product roles."
+    },
+    {
+      "id": "technical_writer",
+      "fixture": "resume_technical_writer.md",
+      "profile": "Technical writer (developer docs, API reference, docs-as-code)",
+      "relevant": "Technical writing, documentation engineering, or developer-education/content roles about software products.",
+      "not_relevant": "Marketing copywriting, generic content-writer/SEO roles, engineering roles, editor roles for non-technical content."
+    },
+    {
+      "id": "career_changer",
+      "fixture": "resume_career_changer.md",
+      "profile": "EDGE CASE — junior web developer, career changer from teaching (thin signal)",
+      "relevant": "Junior or entry-level web development roles, WordPress/site-maintenance roles, internships or apprenticeship-style dev roles; ed-tech dev roles are a plus.",
+      "not_relevant": "Senior/staff engineering roles, roles requiring 3+ years professional dev experience, teaching roles with no development component, non-engineering roles."
+    }
+  ]
+}

@@ -1,0 +1,3151 @@
+{
+  "cases": {
+    "python_backend": {
+      "profile": "Senior Python backend engineer (FastAPI/Django, PostgreSQL, Kubernetes)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            144040,
+            1134923,
+            146979,
+            2091062,
+            147134
+          ],
+          "precision_at_5": 0.4,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 82.8
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            1134923,
+            146979,
+            147134,
+            146800,
+            143979
+          ],
+          "precision_at_5": 0.4,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            146979,
+            2091056,
+            2091058,
+            2091055,
+            2091050
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "fastapi backend engineer",
+        "python platform engineer",
+        "senior python backend"
+      ],
+      "full_rounds": [
+        {
+          "query": "senior python backend",
+          "n_jobs": 8,
+          "n_good": 0,
+          "scorer": "claude"
+        },
+        {
+          "query": "fastapi backend engineer",
+          "n_jobs": 8,
+          "n_good": 0,
+          "scorer": "claude"
+        },
+        {
+          "query": "python platform engineer",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "backend engineer",
+        "django fastapi",
+        "senior python"
+      ],
+      "judgments": {
+        "144040": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Platform staff role but the posting gives no indication Python server-side work is central.",
+          "title": "Staff Software Engineer, App Platform",
+          "company": "Fieldguide"
+        },
+        "1134923": {
+          "relevant": true,
+          "category": "",
+          "reason": "Explicit Python developer role, remote, not junior-scoped.",
+          "title": "Python Developer",
+          "company": "YO IT Consulting"
+        },
+        "146979": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior SRE is an infrastructure-adjacent backend role matching the candidate's Kubernetes/backend profile.",
+          "title": "Senior Site Reliability Engineer (Remote Build)",
+          "company": "Remote"
+        },
+        "2091062": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Fullstack product role with no evidence Python is part of the stack.",
+          "title": "Senior Product Engineer (Fullstack)",
+          "company": "Clipster"
+        },
+        "147134": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer engineer is a customer-facing solutions role, not backend software engineering.",
+          "title": "Customer Engineer",
+          "company": "Nebius"
+        },
+        "146800": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "QA/test engineering role, not backend Python development.",
+          "title": "Software Engineer in Test - Onsite or Remote (FR, UK, DE, NL)",
+          "company": "Dataiku"
+        },
+        "147050": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Edtech expert role at a re-skilling platform, teaching/mentoring rather than backend engineering.",
+          "title": "AI Systems Engineering Expert",
+          "company": "TripleTen"
+        },
+        "2091056": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Generic staff product engineer posting with no Python or stack signal.",
+          "title": "Staff Software Engineer, Product (Belo Horizonte)",
+          "company": "LawnStarter"
+        },
+        "2091055": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Generic staff product engineer posting with no Python or stack signal.",
+          "title": "Staff Software Engineer, Product (S\u00e3o Paulo)",
+          "company": "LawnStarter"
+        },
+        "2091050": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Generic staff product engineer posting with no Python or stack signal.",
+          "title": "Staff Software Engineer, Product (Mexico City)",
+          "company": "LawnStarter"
+        },
+        "143979": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Data analyst is a data/analytics role, explicitly excluded by the rubric.",
+          "title": "Senior Data Analyst",
+          "company": "Ruby Labs"
+        },
+        "146803": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Application security engineering management, not Python backend development.",
+          "title": "Application Security Engineering Manager",
+          "company": "Synthesia"
+        },
+        "147190": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Hardware/SoC architecture role, not backend software engineering.",
+          "title": "AI SoC Hardware Architect",
+          "company": "Ericsson"
+        },
+        "147066": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Android mobile engineering role, not Python backend.",
+          "title": "Staff Android Engineer",
+          "company": "AlphaSense"
+        },
+        "1134961": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Product management role, not an engineering position.",
+          "title": "Senior Product Manager Platform",
+          "company": "Delinea"
+        },
+        "1134925": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Graphic design role in marketing, not engineering.",
+          "title": "Graphic Designer",
+          "company": "YouFibre"
+        },
+        "2091058": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Generic staff product engineer posting with no Python or stack signal.",
+          "title": "Staff Software Engineer, Product (Montevideo)",
+          "company": "LawnStarter"
+        },
+        "1135014": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "React Native mobile role, not Python backend.",
+          "title": "React Native Engineer",
+          "company": "HelpBnk"
+        },
+        "1135017": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Garbled bus-company posting with no role content, unrelated to software backend work.",
+          "title": "Job Summary",
+          "company": "LOTHIAN BUSES LIMITED"
+        },
+        "1135019": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Expression of interest with no specific role or stack described.",
+          "title": "Expression Of Interest",
+          "company": "White Peak Digital"
+        },
+        "1135032": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Placement/recruitment officer role, not engineering.",
+          "title": "Placement Officer",
+          "company": "Grey Sim Learnings Foundation"
+        },
+        "1135025": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Presentation design role, not engineering.",
+          "title": "Presentation Designer",
+          "company": "INFUSE"
+        },
+        "1135029": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Empty description with a vague title, no evidence of backend Python work.",
+          "title": "Technical Specialist",
+          "company": "PeopleLink Collaboration Inc."
+        },
+        "1135037": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Remote gatekeeper/concierge role, not a software position.",
+          "title": "Operador de Portaria Remota Recife PE Profissionais Solicitados",
+          "company": "BuscarVagas - Empregos Brasil"
+        },
+        "1135030": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Designer role with placeholder description, not engineering.",
+          "title": "Designer",
+          "company": "RideTEGO"
+        }
+      }
+    },
+    "react_frontend": {
+      "profile": "Senior frontend engineer (React, TypeScript, Next.js, accessibility)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            147065,
+            2091062,
+            1135014,
+            2091056,
+            2091058
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 70.9
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            147065,
+            1135014,
+            2091067,
+            1134925,
+            1134947
+          ],
+          "precision_at_5": 0.0,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            2091062,
+            2091067,
+            2091056,
+            2091058,
+            2091055
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "frontend developer nextjs",
+        "frontend engineer react",
+        "senior react typescript remote"
+      ],
+      "full_rounds": [
+        {
+          "query": "senior react typescript remote",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "frontend engineer react",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        },
+        {
+          "query": "frontend developer nextjs",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "engineer typescript",
+        "next.js accessibility",
+        "react frontend"
+      ],
+      "judgments": {
+        "147065": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Frontend-heavy canvas engineering role, but Staff level exceeds the senior-or-mid band in the rubric.",
+          "title": "Staff Design Engineer",
+          "company": "Miro"
+        },
+        "2091062": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior fullstack product engineer at a consumer web startup, frontend-leaning modern JS work at the right level.",
+          "title": "Senior Product Engineer (Fullstack)",
+          "company": "Clipster"
+        },
+        "1135014": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "React Native is a mobile-native role, which the rubric excludes despite the shared React skillset.",
+          "title": "React Native Engineer",
+          "company": "HelpBnk"
+        },
+        "2091056": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Staff-level role, above the senior-or-mid range the rubric allows.",
+          "title": "Staff Software Engineer, Product (Belo Horizonte)",
+          "company": "LawnStarter"
+        },
+        "2091058": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Staff-level role, above the senior-or-mid range the rubric allows.",
+          "title": "Staff Software Engineer, Product (Montevideo)",
+          "company": "LawnStarter"
+        },
+        "2091055": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Staff-level role, above the senior-or-mid range the rubric allows.",
+          "title": "Staff Software Engineer, Product (S\u00e3o Paulo)",
+          "company": "LawnStarter"
+        },
+        "2091050": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Staff-level role, above the senior-or-mid range the rubric allows.",
+          "title": "Staff Software Engineer, Product (Mexico City)",
+          "company": "LawnStarter"
+        },
+        "2091049": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Staff-level role, above the senior-or-mid range the rubric allows.",
+          "title": "Staff Software Engineer, Product (Campinas)",
+          "company": "LawnStarter"
+        },
+        "2091059": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Staff-level role, above the senior-or-mid range the rubric allows.",
+          "title": "Staff Software Engineer, Product (Florian\u00f3polis)",
+          "company": "LawnStarter"
+        },
+        "2091057": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Staff-level role, above the senior-or-mid range the rubric allows.",
+          "title": "Staff Product Engineer (Mexico City)",
+          "company": "LawnStarter"
+        },
+        "2091067": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "DevOps is infrastructure engineering, not a frontend or full-stack-leaning-frontend role.",
+          "title": "Senior DevOps Engineer",
+          "company": "Lemon.io"
+        },
+        "1134925": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Graphic designer is a designer-only, non-engineering role.",
+          "title": "Graphic Designer",
+          "company": "YouFibre"
+        },
+        "1134947": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Hospital courier is not an engineering role.",
+          "title": "COURIER",
+          "company": "Doctors Hospital"
+        },
+        "1134948": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Procurement and contract administration is not an engineering role.",
+          "title": "Procurement Associate",
+          "company": "UNOPS"
+        },
+        "1134949": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Retail merchandiser is not an engineering role.",
+          "title": "Merchandiser",
+          "company": "Brydens Antigua"
+        },
+        "1134950": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Water plant operator is not a software engineering role.",
+          "title": "Exuma Operator",
+          "company": "Seven Seas Water Group"
+        },
+        "147066": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Native Android mobile role, explicitly excluded as mobile-native-only.",
+          "title": "Staff Android Engineer",
+          "company": "AlphaSense"
+        },
+        "144089": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Site reliability engineering is infrastructure work, not frontend.",
+          "title": "Senior Site Reliability Engineer",
+          "company": "Cribl"
+        },
+        "1135001": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Videographer is a media production role, not engineering.",
+          "title": "Videographer",
+          "company": "Gritter Francona"
+        },
+        "1135003": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Scriptwriter is a content-writing role, not engineering.",
+          "title": "Scriptwriter",
+          "company": "Gritter Francona"
+        },
+        "1134995": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Animation and visual art is a designer-only, non-engineering role.",
+          "title": "Animated Graphic Visual Artist",
+          "company": "Gritter Francona"
+        },
+        "144998": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer-facing project manager is not an engineering role.",
+          "title": "Customer Facing, Project Manager \u2013 North Carolina",
+          "company": "Agilent Technologies"
+        },
+        "1135002": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Video producer is a media production role, not engineering.",
+          "title": "Video Producer",
+          "company": "Gritter Francona"
+        }
+      }
+    },
+    "data_analyst": {
+      "profile": "Data analyst (SQL, Tableau/Power BI, A/B testing)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            143979,
+            1134912,
+            146131,
+            146605,
+            146472
+          ],
+          "precision_at_5": 0.4,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 72.3
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            143979,
+            1134912,
+            146131,
+            146605,
+            146472
+          ],
+          "precision_at_5": 0.4,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            143979,
+            146131,
+            146605,
+            146800,
+            147134
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "analytics engineer dbt",
+        "data analyst sql",
+        "data analyst tableau"
+      ],
+      "full_rounds": [
+        {
+          "query": "data analyst SQL",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "data analyst tableau",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "analytics engineer dbt",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "dashboards python",
+        "data analyst",
+        "tableau power"
+      ],
+      "judgments": {
+        "143979": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior Data Analyst role directly matches the analyst/BI profile.",
+          "title": "Senior Data Analyst",
+          "company": "Ruby Labs"
+        },
+        "1134912": {
+          "relevant": true,
+          "category": "",
+          "reason": "Power BI analyst role is squarely BI/dashboards work.",
+          "title": "Junior Power BI Analyst",
+          "company": "StatusNeo"
+        },
+        "146131": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer experience/project coordination role, not SQL or dashboard analytics.",
+          "title": "Customer Experience Analyst",
+          "company": "TechMagic"
+        },
+        "146605": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Advanced data science pricing/modeling leadership, not BI/analyst work.",
+          "title": "Assistant Director, Data Science: Renter's Portfolio",
+          "company": "Liberty Mutual"
+        },
+        "146472": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "SEO/marketing role without a SQL or dashboard analytics core.",
+          "title": "SEO Analyst (Fully Remote)",
+          "company": "PadSplit"
+        },
+        "2091047": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Crowdsourced map-content rating is pure data-entry, not analytics.",
+          "title": "Online Data Analyst Canada (French Language) (C)",
+          "company": "TELUS Digital"
+        },
+        "2090903": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Data labeling is pure data-entry work, explicitly excluded.",
+          "title": "Data Labeling Specialists",
+          "company": "Workada"
+        },
+        "143967": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Gartner industry-analyst thought leadership, not data analytics.",
+          "title": "VP Analyst, Analyst Relations (Remote-Western Europe)",
+          "company": "Gartner"
+        },
+        "146778": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Clinical biostatistics consulting, not SQL/dashboard business analytics.",
+          "title": "Principal Statistician Consultant-R&I (Respiratory & Immunology) REMOTE@EU/UK",
+          "company": "ClinChoice"
+        },
+        "146982": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Commercial market-insights/sales-facing lead role, not data analytics.",
+          "title": "Customer and Sector Insights Lead: Mining",
+          "company": "Spirax Group"
+        },
+        "146556": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "ML engineering management role, explicitly excluded by rubric.",
+          "title": "Machine Learning Engineering Manager - Ads Engagement Modeling",
+          "company": "Reddit"
+        },
+        "1134986": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Social media marketing role with no analytics core.",
+          "title": "Social Media Manager",
+          "company": "Degy Entertainment"
+        },
+        "1134989": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Digital media/communications role, not a data role.",
+          "title": "Digital Media Specialist",
+          "company": "Rose, Klein & Marias"
+        },
+        "146800": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Software test engineering role, not analytics.",
+          "title": "Software Engineer in Test - Onsite or Remote (FR, UK, DE, NL)",
+          "company": "Dataiku"
+        },
+        "147134": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer-facing cloud infrastructure engineering, not analytics.",
+          "title": "Customer Engineer",
+          "company": "Nebius"
+        },
+        "1134961": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Product management role, not a data analytics role.",
+          "title": "Senior Product Manager Platform",
+          "company": "Delinea"
+        },
+        "1134950": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Water treatment plant operator, unrelated to data work.",
+          "title": "Exuma Operator",
+          "company": "Seven Seas Water Group"
+        },
+        "146803": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Application security engineering management, not analytics.",
+          "title": "Application Security Engineering Manager",
+          "company": "Synthesia"
+        },
+        "1135025": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Presentation design role, not a data role.",
+          "title": "Presentation Designer",
+          "company": "INFUSE"
+        },
+        "147190": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Hardware/silicon architecture engineering, not analytics.",
+          "title": "AI SoC Hardware Architect",
+          "company": "Ericsson"
+        },
+        "1134925": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Graphic design role, not a data role.",
+          "title": "Graphic Designer",
+          "company": "YouFibre"
+        },
+        "1134960": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Accounting role; financial reporting is not SQL/dashboard analytics.",
+          "title": "Management Accountant Dayshift",
+          "company": "D2B"
+        },
+        "1134987": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Sales account management role, not a data role.",
+          "title": "National Account Manager Foodservice",
+          "company": "Georgia Pacific"
+        },
+        "1134923": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Software developer role, not an analytics role.",
+          "title": "Python Developer",
+          "company": "YO IT Consulting"
+        },
+        "1135024": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Placeholder/spam listing with lorem-ipsum text and no real role content.",
+          "title": "Et",
+          "company": "Bedrok"
+        },
+        "1135036": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Administrative assistant role, unrelated to data analytics.",
+          "title": "Asistente Administrativo",
+          "company": "Blanco Silva Consultor\u00c3\u00ada Inform\u00c3\u00a1tica - BSCI -"
+        }
+      }
+    },
+    "devops_sre": {
+      "profile": "SRE/DevOps engineer (Kubernetes, Terraform, AWS/GCP, observability)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            146979,
+            144089,
+            2091067,
+            144040,
+            143906
+          ],
+          "precision_at_5": 0.6,
+          "success": true,
+          "rounds_used": 1,
+          "early_stop": true,
+          "recovery_opportunity": false,
+          "wall_seconds": 22.3
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            146979,
+            144089,
+            2091067,
+            144040,
+            143906
+          ],
+          "precision_at_5": 0.6,
+          "success": true,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            146979,
+            144089,
+            146762,
+            144040,
+            2091067
+          ],
+          "precision_at_5": 0.8,
+          "success": true,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "site reliability engineer kubernetes"
+      ],
+      "full_rounds": [
+        {
+          "query": "site reliability engineer kubernetes",
+          "n_jobs": 8,
+          "n_good": 3,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "devops reliability",
+        "engineer infrastructure",
+        "site cloud"
+      ],
+      "judgments": {
+        "146979": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior SRE role, squarely within the SRE/reliability rubric.",
+          "title": "Senior Site Reliability Engineer (Remote Build)",
+          "company": "Remote"
+        },
+        "144089": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior SRE role at a telemetry infrastructure company.",
+          "title": "Senior Site Reliability Engineer",
+          "company": "Cribl"
+        },
+        "2091067": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior DevOps engineer role, explicitly in the relevant role family.",
+          "title": "Senior DevOps Engineer",
+          "company": "Lemon.io"
+        },
+        "144040": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Staff software engineer building an application product, not infrastructure/platform operations.",
+          "title": "Staff Software Engineer, App Platform",
+          "company": "Fieldguide"
+        },
+        "143906": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Backend cloud-services application development, not SRE/DevOps/infrastructure work.",
+          "title": "Senior Software Engineer",
+          "company": "Bentley Systems"
+        },
+        "146976": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Data lakes software engineering role, not infrastructure or reliability engineering.",
+          "title": "Principal Software Engineer - Data Lakes",
+          "company": "Fivetran"
+        },
+        "147583": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Site strategy/consulting management role for physical data center sites, not an engineering role.",
+          "title": "Site Strategy Manager, Data Center Sites - Remote (U.S.)",
+          "company": "AECOM"
+        },
+        "146803": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Application security management is a security-only role, excluded by the rubric.",
+          "title": "Application Security Engineering Manager",
+          "company": "Synthesia"
+        },
+        "146762": {
+          "relevant": true,
+          "category": "",
+          "reason": "Principal DevOps engineer with cloud-native focus, matches the rubric directly.",
+          "title": "Principal DevOps Engineer",
+          "company": "Zartis"
+        },
+        "146806": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Sales executive role, not engineering.",
+          "title": "EHR Principal Sales Executive, HCLS US Providers",
+          "company": "Amazon.com"
+        },
+        "2090986": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "AI/application engineering role, not SRE/DevOps/infrastructure.",
+          "title": "Senior AI Engineer",
+          "company": "Lemon.io"
+        },
+        "147073": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Privacy/compliance management role, not engineering.",
+          "title": "Privacy Manager",
+          "company": "Nebius"
+        },
+        "1134961": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Product management role, not an engineering position.",
+          "title": "Senior Product Manager Platform",
+          "company": "Delinea"
+        },
+        "2090984": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Product management role, not an engineering position.",
+          "title": "Senior Product Manager",
+          "company": "Lemon.io"
+        },
+        "1135014": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Pure mobile application development role, excluded by the rubric.",
+          "title": "React Native Engineer",
+          "company": "HelpBnk"
+        },
+        "1134990": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Marketing/creative strategy role, not engineering.",
+          "title": "Creative Strategist",
+          "company": "New Engen"
+        },
+        "1134955": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer engagement/relations role, not engineering.",
+          "title": "Associate Customer Engagement",
+          "company": "The Coca-Cola Company"
+        },
+        "1134950": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Water utility plant operator role, unrelated to software or cloud infrastructure.",
+          "title": "Exuma Operator",
+          "company": "Seven Seas Water Group"
+        },
+        "147122": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer success role, not engineering.",
+          "title": "Customer Success Advisor - ASEAN",
+          "company": "Autodesk"
+        },
+        "1134898": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Newsletter publisher role, not engineering.",
+          "title": "Publisher",
+          "company": "NewsletterJobs.io"
+        },
+        "1134897": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Open-ended 'create your own role' posting with no defined engineering role.",
+          "title": "Create Your Own Role",
+          "company": "NewsletterJobs.io"
+        }
+      }
+    },
+    "ml_engineer": {
+      "profile": "ML engineer (PyTorch, LLMs, RAG, MLOps)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            1919266,
+            2090986,
+            146556,
+            147134,
+            146800
+          ],
+          "precision_at_5": 0.4,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 71.5
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            1919266,
+            146556,
+            146800,
+            2091067,
+            146321
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            146556,
+            146800,
+            146688,
+            147189,
+            147005
+          ],
+          "precision_at_5": 0.0,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "llm engineer rag",
+        "machine learning engineer llm",
+        "nlp engineer pytorch"
+      ],
+      "full_rounds": [
+        {
+          "query": "machine learning engineer LLM",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "llm engineer rag",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        },
+        {
+          "query": "nlp engineer pytorch",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "engineer models",
+        "machine learning",
+        "pytorch scikit"
+      ],
+      "judgments": {
+        "1919266": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior AI/ML engineer network role building production AI systems, directly matching the profile.",
+          "title": "Senior Independent AI Engineer / Architect",
+          "company": "A.Team"
+        },
+        "2090986": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior AI Engineer role via marketplace matching the AI/ML engineering role family.",
+          "title": "Senior AI Engineer",
+          "company": "Lemon.io"
+        },
+        "146556": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "ML engineering manager role focused on leading a team, not an IC model-building role.",
+          "title": "Machine Learning Engineering Manager - Ads Engagement Modeling",
+          "company": "Reddit"
+        },
+        "147134": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer-facing solutions engineering at an AI cloud vendor, not building/deploying models.",
+          "title": "Customer Engineer",
+          "company": "Nebius"
+        },
+        "146800": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "QA/test engineering role at an AI company, not ML engineering.",
+          "title": "Software Engineer in Test - Onsite or Remote (FR, UK, DE, NL)",
+          "company": "Dataiku"
+        },
+        "146762": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "General DevOps/cloud infrastructure role with no model-building component.",
+          "title": "Principal DevOps Engineer",
+          "company": "Zartis"
+        },
+        "144040": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "General app-platform backend engineering with no ML component.",
+          "title": "Staff Software Engineer, App Platform",
+          "company": "Fieldguide"
+        },
+        "147189": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "MLIR compiler/silicon engineering, not building or deploying ML models.",
+          "title": "AI Compiler Engineer",
+          "company": "Ericsson"
+        },
+        "2091067": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Pure DevOps role with no ML responsibilities.",
+          "title": "Senior DevOps Engineer",
+          "company": "Lemon.io"
+        },
+        "147190": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "SoC hardware architecture role, not ML/LLM software engineering.",
+          "title": "AI SoC Hardware Architect",
+          "company": "Ericsson"
+        },
+        "2069746": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Full-stack Rails role where LLMs are a product feature, not the engineer's core work.",
+          "title": "Tech Lead Full-Stack Rails Engineer",
+          "company": "Mitre Media"
+        },
+        "146321": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer education program management, not an engineering role.",
+          "title": "Customer Education Program Manager",
+          "company": "Ashby"
+        },
+        "146688": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Product marketing role despite AI infrastructure subject matter.",
+          "title": "Technical Product Marketer, k0rdent AI - remote in the US",
+          "company": "Mirantis"
+        },
+        "146131": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer experience analyst role with no ML or engineering work.",
+          "title": "Customer Experience Analyst",
+          "company": "TechMagic"
+        },
+        "147073": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Privacy/compliance management role, not engineering.",
+          "title": "Privacy Manager",
+          "company": "Nebius"
+        },
+        "146803": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Application security engineering management, no ML component.",
+          "title": "Application Security Engineering Manager",
+          "company": "Synthesia"
+        },
+        "146760": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Linguistic/localization testing gig, akin to annotation work.",
+          "title": "Norwegian Tech Linguistic Tester",
+          "company": "Welo Global"
+        },
+        "146761": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Linguistic/localization testing gig, akin to annotation work.",
+          "title": "Danish Tech Linguistic Tester",
+          "company": "Welo Global"
+        },
+        "145803": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Sales/account management role in AI services.",
+          "title": "Account Manager - Speech & AI Technologies",
+          "company": "Side"
+        },
+        "146923": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Consumer-products regional educator role, unrelated to ML.",
+          "title": "Regional Educator - West",
+          "company": "Colgate-Palmolive"
+        },
+        "146781": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Translation gig with no engineering content.",
+          "title": "French into Portuguese Financial Banking Translator",
+          "company": "Welo Global"
+        },
+        "147005": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Clinical pharmacist role at a health-tech company, not ML engineering.",
+          "title": "Clinical Program Pharmacist",
+          "company": "Arine"
+        },
+        "146806": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Healthcare sales executive role, explicitly excluded sales category.",
+          "title": "EHR Principal Sales Executive, HCLS US Providers",
+          "company": "Amazon.com"
+        },
+        "147133": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Marketing manager role despite AI-platform employer.",
+          "title": "Customer Marketing Manager",
+          "company": "Dataiku"
+        },
+        "1134951": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Social/community management role, unrelated to ML.",
+          "title": "Community & Social Manager",
+          "company": "Pacifica Beauty"
+        },
+        "143813": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer success role at an AI company, not engineering.",
+          "title": "Customer Success - Japan",
+          "company": "Elevenlabs"
+        },
+        "1134952": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Defense sales leadership role, unrelated to ML.",
+          "title": "Director Business Development Army",
+          "company": "NOBLE"
+        },
+        "147122": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer success advisory role, not engineering.",
+          "title": "Customer Success Advisor - ASEAN",
+          "company": "Autodesk"
+        },
+        "147123": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Duplicate customer success advisory role, not engineering.",
+          "title": "Customer Success Advisor -ASEAN",
+          "company": "Autodesk"
+        },
+        "1135025": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Presentation design role with no ML or engineering work.",
+          "title": "Presentation Designer",
+          "company": "INFUSE"
+        },
+        "1134993": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Social media assistant gig, unrelated to ML.",
+          "title": "Social Media Assistant Instagram",
+          "company": "OnlineJobs.PH"
+        }
+      }
+    },
+    "mobile_dev": {
+      "profile": "Mobile engineer (Swift/SwiftUI, Kotlin, React Native)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            1135014,
+            147066,
+            1134919,
+            2091067,
+            2090986
+          ],
+          "precision_at_5": 0.4,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 70.5
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            1135014,
+            1134919,
+            1134989,
+            1134953,
+            1135049
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            2091056,
+            146762,
+            1135014,
+            147066,
+            1134989
+          ],
+          "precision_at_5": 0.4,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "android engineer kotlin",
+        "react native engineer",
+        "senior mobile engineer swiftui"
+      ],
+      "full_rounds": [
+        {
+          "query": "senior mobile engineer SwiftUI",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "android engineer kotlin",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        },
+        {
+          "query": "react native engineer",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "mobile android",
+        "native engineer",
+        "react both"
+      ],
+      "judgments": {
+        "1135014": {
+          "relevant": true,
+          "category": "",
+          "reason": "React Native engineering role, explicitly cross-platform mobile.",
+          "title": "React Native Engineer",
+          "company": "HelpBnk"
+        },
+        "147066": {
+          "relevant": true,
+          "category": "",
+          "reason": "Android engineering role; staff level satisfies the senior bar.",
+          "title": "Staff Android Engineer",
+          "company": "AlphaSense"
+        },
+        "1134919": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Generic 'Engineers (All Levels)' posting with no defined mobile engineering role or seniority.",
+          "title": "Engineers",
+          "company": "Lockwood Publishing Ltd"
+        },
+        "2091067": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "DevOps/infrastructure role, not mobile development.",
+          "title": "Senior DevOps Engineer",
+          "company": "Lemon.io"
+        },
+        "2090986": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "AI engineering role with no mobile component.",
+          "title": "Senior AI Engineer",
+          "company": "Lemon.io"
+        },
+        "1134989": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Digital media/marketing role, not engineering.",
+          "title": "Digital Media Specialist",
+          "company": "Rose, Klein & Marias"
+        },
+        "2090984": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Product management role, not an engineering position.",
+          "title": "Senior Product Manager",
+          "company": "Lemon.io"
+        },
+        "1134953": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Content marketing role, not engineering.",
+          "title": "Content Marketing Manager",
+          "company": "Planned Parenthood of Greater New York"
+        },
+        "1135049": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Military air defense position, unrelated to software engineering.",
+          "title": "AIR DEFENSE",
+          "company": "Mississippi Army National Guard Biloxi Office"
+        },
+        "1134954": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "CEO/executive leadership role, not an engineering position.",
+          "title": "Date Posted",
+          "company": "OptN Inc"
+        },
+        "1134990": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Marketing/creative strategy role, not engineering.",
+          "title": "Creative Strategist",
+          "company": "New Engen"
+        },
+        "1134925": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Graphic design role in marketing, not engineering.",
+          "title": "Graphic Designer",
+          "company": "YouFibre"
+        },
+        "146760": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Linguistic/localization testing role, QA-only and not engineering.",
+          "title": "Norwegian Tech Linguistic Tester",
+          "company": "Welo Global"
+        },
+        "146761": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Linguistic/localization testing role, QA-only and not engineering.",
+          "title": "Danish Tech Linguistic Tester",
+          "company": "Welo Global"
+        },
+        "149034": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer service role, not engineering.",
+          "title": "Customer Service Representatives",
+          "company": "Sutherland"
+        },
+        "1134947": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Hospital courier/logistics role, unrelated to engineering.",
+          "title": "COURIER",
+          "company": "Doctors Hospital"
+        },
+        "1134948": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Procurement/administrative role, not engineering.",
+          "title": "Procurement Associate",
+          "company": "UNOPS"
+        },
+        "1134949": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Retail merchandising role, not engineering.",
+          "title": "Merchandiser",
+          "company": "Brydens Antigua"
+        },
+        "1134950": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Water utility plant operator role, not software engineering.",
+          "title": "Exuma Operator",
+          "company": "Seven Seas Water Group"
+        },
+        "149177": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Graphic design role, not engineering.",
+          "title": "Graphic Designer - Marketing",
+          "company": "Truelogic"
+        },
+        "2091056": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Full-stack product engineering for a web marketplace with no mobile-leading focus.",
+          "title": "Staff Software Engineer, Product (Belo Horizonte)",
+          "company": "LawnStarter"
+        },
+        "146762": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "DevOps/cloud infrastructure role, not mobile development.",
+          "title": "Principal DevOps Engineer",
+          "company": "Zartis"
+        },
+        "144040": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Platform/web software engineering for audit tooling, no mobile component.",
+          "title": "Staff Software Engineer, App Platform",
+          "company": "Fieldguide"
+        },
+        "1134961": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Product management role, not an engineering position.",
+          "title": "Senior Product Manager Platform",
+          "company": "Delinea"
+        },
+        "1134986": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Social media marketing role, not engineering.",
+          "title": "Social Media Manager",
+          "company": "Degy Entertainment"
+        },
+        "147138": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer success role, not engineering.",
+          "title": "Customer Success Manager - LATAM (One-to-Many)",
+          "company": "WATI"
+        },
+        "1135016": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Content creator role, not engineering.",
+          "title": "UGC Creator",
+          "company": "ren"
+        }
+      }
+    },
+    "security_engineer": {
+      "profile": "Security engineer (AppSec, cloud security, incident response)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            146803,
+            146550,
+            147073,
+            146762,
+            144040
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 72.8
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            146803,
+            146550,
+            147073,
+            1134961,
+            1135025
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            146803,
+            1134961,
+            146806,
+            146550,
+            1134957
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "application security engineer",
+        "cloud security engineer",
+        "devsecops engineer aws"
+      ],
+      "full_rounds": [
+        {
+          "query": "application security engineer",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "cloud security engineer",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "devsecops engineer aws",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "cloud application",
+        "security engineer",
+        "threat secure"
+      ],
+      "judgments": {
+        "146803": {
+          "relevant": true,
+          "category": "",
+          "reason": "Application security engineering leadership role, squarely in the AppSec family.",
+          "title": "Application Security Engineering Manager",
+          "company": "Synthesia"
+        },
+        "146550": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Pre-sales/sales engineer role selling AppSec products, not a security engineering role.",
+          "title": "Sales Engineer (Application Security)",
+          "company": "Thales"
+        },
+        "147073": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Privacy/compliance management role with no technical security engineering component.",
+          "title": "Privacy Manager",
+          "company": "Nebius"
+        },
+        "146762": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "General DevOps role with only incidental mention of security, not DevSecOps.",
+          "title": "Principal DevOps Engineer",
+          "company": "Zartis"
+        },
+        "144040": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "General SWE platform role; company operates in audit/cybersecurity but the role itself has no security focus.",
+          "title": "Staff Software Engineer, App Platform",
+          "company": "Fieldguide"
+        },
+        "1134961": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Product manager role at a security company, not an engineering position.",
+          "title": "Senior Product Manager Platform",
+          "company": "Delinea"
+        },
+        "147134": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer-facing/solutions engineering for cloud infrastructure, no security focus.",
+          "title": "Customer Engineer",
+          "company": "Nebius"
+        },
+        "1134897": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Open-ended 'create your own role' posting with no defined security engineering function.",
+          "title": "Create Your Own Role",
+          "company": "NewsletterJobs.io"
+        },
+        "1135025": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Graphic/presentation design role, unrelated to engineering.",
+          "title": "Presentation Designer",
+          "company": "INFUSE"
+        },
+        "1134990": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Marketing/creative agency role, not engineering.",
+          "title": "Creative Strategist",
+          "company": "New Engen"
+        },
+        "1134957": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Museum collections role, unrelated to engineering or security.",
+          "title": "Museum Specialist ",
+          "company": "Smithsonian Institution"
+        },
+        "1134955": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer engagement/support role, not engineering.",
+          "title": "Associate Customer Engagement",
+          "company": "The Coca-Cola Company"
+        },
+        "1134898": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Media publishing/sales role, unrelated to engineering.",
+          "title": "Publisher",
+          "company": "NewsletterJobs.io"
+        },
+        "146806": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Healthcare sales executive role, not an engineering position.",
+          "title": "EHR Principal Sales Executive, HCLS US Providers",
+          "company": "Amazon.com"
+        },
+        "1135015": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Administrative patient-scheduling role, unrelated to engineering.",
+          "title": "Patient Scheduler",
+          "company": "ARStrat"
+        },
+        "1134952": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Sales/business development leadership role, not engineering.",
+          "title": "Director Business Development Army",
+          "company": "NOBLE"
+        },
+        "1134988": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Creative agency director role, unrelated to engineering.",
+          "title": "Creative Director",
+          "company": "Bellweather Agency"
+        },
+        "1135010": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Scraped generic defense career-site page with no specific role, and defense/physical security besides.",
+          "title": "Contribute Building a Secure Nation",
+          "company": "Adani Skills & Education"
+        },
+        "1134947": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Hospital courier/logistics role, unrelated to engineering.",
+          "title": "COURIER",
+          "company": "Doctors Hospital"
+        },
+        "1135049": {
+          "relevant": false,
+          "category": "other",
+          "reason": "Military air-defense (physical security) role, explicitly excluded by the rubric.",
+          "title": "AIR DEFENSE",
+          "company": "Mississippi Army National Guard Biloxi Office"
+        }
+      }
+    },
+    "data_engineer": {
+      "profile": "Data engineer (Spark, Airflow, dbt, Snowflake/BigQuery, Kafka)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            146976,
+            143979,
+            146605,
+            2090903,
+            143808
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 150.7
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            146976,
+            143979,
+            146605,
+            2090903,
+            143808
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            146762,
+            147190,
+            2091056,
+            2091058,
+            2091055
+          ],
+          "precision_at_5": 0.0,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "data engineer airflow",
+        "data engineer dbt",
+        "data engineer spark"
+      ],
+      "full_rounds": [
+        {
+          "query": "data engineer airflow",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "data engineer dbt",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "data engineer spark",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "airflow kafka",
+        "data engineer",
+        "pipelines streaming"
+      ],
+      "judgments": {
+        "146976": {
+          "relevant": true,
+          "category": "",
+          "reason": "Principal engineer on data lakes at a data-pipeline company is squarely a data-platform role.",
+          "title": "Principal Software Engineer - Data Lakes",
+          "company": "Fivetran"
+        },
+        "143979": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Pure data analyst role with no indication of pipeline building.",
+          "title": "Senior Data Analyst",
+          "company": "Ruby Labs"
+        },
+        "146605": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Data science/pricing-modeling leadership role, not pipeline or platform engineering.",
+          "title": "Assistant Director, Data Science: Renter's Portfolio",
+          "company": "Liberty Mutual"
+        },
+        "2090903": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Manual data labeling and QA work, not an engineering role.",
+          "title": "Data Labeling Specialists",
+          "company": "Workada"
+        },
+        "143808": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Construction schedule management for data center buildings, unrelated to data engineering.",
+          "title": "Area Schedule Lead - Data Center Design, Engineering and Construction",
+          "company": "Meta"
+        },
+        "147583": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Real-estate/site strategy role for data center facilities, not engineering.",
+          "title": "Site Strategy Manager, Data Center Sites - Remote (U.S.)",
+          "company": "AECOM"
+        },
+        "147119": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Legal role in data privacy, not an engineering position.",
+          "title": "APAC Data Privacy Lawyer - Australia (Part-time, Remote)",
+          "company": "Axiom"
+        },
+        "146015": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Legal consultant role on privacy compliance, not engineering.",
+          "title": "Legal Consultant - Data Privacy",
+          "company": "Axiom"
+        },
+        "146762": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "DevOps/cloud infrastructure engineering with no data-pipeline component.",
+          "title": "Principal DevOps Engineer",
+          "company": "Zartis"
+        },
+        "147190": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Silicon/hardware architecture role, unrelated to data pipelines.",
+          "title": "AI SoC Hardware Architect",
+          "company": "Ericsson"
+        },
+        "2091056": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "General product/backend engineering with no data-pipeline component.",
+          "title": "Staff Software Engineer, Product (Belo Horizonte)",
+          "company": "LawnStarter"
+        },
+        "2091058": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "General product/backend engineering with no data-pipeline component.",
+          "title": "Staff Software Engineer, Product (Montevideo)",
+          "company": "LawnStarter"
+        },
+        "2091055": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "General product/backend engineering with no data-pipeline component.",
+          "title": "Staff Software Engineer, Product (S\u00e3o Paulo)",
+          "company": "LawnStarter"
+        },
+        "2091050": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "General product/backend engineering with no data-pipeline component.",
+          "title": "Staff Software Engineer, Product (Mexico City)",
+          "company": "LawnStarter"
+        },
+        "2091049": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "General product/backend engineering with no data-pipeline component.",
+          "title": "Staff Software Engineer, Product (Campinas)",
+          "company": "LawnStarter"
+        },
+        "2091059": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "General product/backend engineering with no data-pipeline component.",
+          "title": "Staff Software Engineer, Product (Florian\u00f3polis)",
+          "company": "LawnStarter"
+        },
+        "2091057": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "General product engineering role with no data-pipeline component.",
+          "title": "Staff Product Engineer (Mexico City)",
+          "company": "LawnStarter"
+        },
+        "143906": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Cloud sync backend touches data ingestion but is not a warehouse/pipeline/streaming data-engineering role.",
+          "title": "Senior Software Engineer",
+          "company": "Bentley Systems"
+        },
+        "147189": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Compiler/silicon engineering role, unrelated to data pipelines.",
+          "title": "AI Compiler Engineer",
+          "company": "Ericsson"
+        },
+        "146673": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Recruiting role, not engineering.",
+          "title": "Talent Acquisition Partner",
+          "company": "Ericsson"
+        },
+        "1135014": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Mobile app engineering role with no data-pipeline component.",
+          "title": "React Native Engineer",
+          "company": "HelpBnk"
+        }
+      }
+    },
+    "qa_automation": {
+      "profile": "QA automation engineer / SDET (Playwright, Selenium, Cypress)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            146800,
+            1134923,
+            1134935,
+            1135014,
+            146762
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 67.6
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            146800,
+            1135014,
+            146762,
+            144089,
+            144043
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            146800,
+            146762,
+            144089,
+            1134989,
+            1134990
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "qa automation playwright",
+        "sdet python selenium",
+        "test automation cypress"
+      ],
+      "full_rounds": [
+        {
+          "query": "QA automation Playwright",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "sdet python selenium",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        },
+        {
+          "query": "test automation cypress",
+          "n_jobs": 8,
+          "n_good": 1,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "automation engineer",
+        "test selenium",
+        "testing manual"
+      ],
+      "judgments": {
+        "146800": {
+          "relevant": true,
+          "category": "",
+          "reason": "Software Engineer in Test is a direct SDET role match.",
+          "title": "Software Engineer in Test - Onsite or Remote (FR, UK, DE, NL)",
+          "company": "Dataiku"
+        },
+        "1134923": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Python developer role with no testing focus.",
+          "title": "Python Developer",
+          "company": "YO IT Consulting"
+        },
+        "1134935": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Junior 0-1 year QA tester posting with no automation mentioned, mismatched to an experienced SDET.",
+          "title": "Junior QA Tester",
+          "company": "Work Force Nexus"
+        },
+        "1135014": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Mobile developer role with no testing focus.",
+          "title": "React Native Engineer",
+          "company": "HelpBnk"
+        },
+        "146762": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "DevOps engineering role, not QA or test engineering.",
+          "title": "Principal DevOps Engineer",
+          "company": "Zartis"
+        },
+        "144089": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Site reliability engineering role, not QA or test engineering.",
+          "title": "Senior Site Reliability Engineer",
+          "company": "Cribl"
+        },
+        "147134": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer-facing engineering role, not QA or test engineering.",
+          "title": "Customer Engineer",
+          "company": "Nebius"
+        },
+        "146803": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Application security management role, not QA or test engineering.",
+          "title": "Application Security Engineering Manager",
+          "company": "Synthesia"
+        },
+        "146979": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Site reliability engineering role, not QA or test engineering.",
+          "title": "Senior Site Reliability Engineer (Remote Build)",
+          "company": "Remote"
+        },
+        "144043": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Compliance audit management role, not an engineering position.",
+          "title": "SOC 2 Associate Manager - LATAM",
+          "company": "Insight Assurance"
+        },
+        "146855": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Sales engineer role is a sales position, not QA engineering.",
+          "title": "Graduate Sales Engineer",
+          "company": "SOTI"
+        },
+        "143979": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Data analyst role with no QA or test automation focus.",
+          "title": "Senior Data Analyst",
+          "company": "Ruby Labs"
+        },
+        "146760": {
+          "relevant": false,
+          "category": "other",
+          "reason": "Manual linguistic/localization testing with no automation component.",
+          "title": "Norwegian Tech Linguistic Tester",
+          "company": "Welo Global"
+        },
+        "146761": {
+          "relevant": false,
+          "category": "other",
+          "reason": "Manual linguistic/localization testing with no automation component.",
+          "title": "Danish Tech Linguistic Tester",
+          "company": "Welo Global"
+        },
+        "1134960": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Accounting role, not an engineering position.",
+          "title": "Management Accountant Dayshift",
+          "company": "D2B"
+        },
+        "147138": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer success role, not an engineering position.",
+          "title": "Customer Success Manager - LATAM (One-to-Many)",
+          "company": "WATI"
+        },
+        "1134925": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Graphic design role, not an engineering position.",
+          "title": "Graphic Designer",
+          "company": "YouFibre"
+        },
+        "147190": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Hardware architecture role, not QA or test engineering.",
+          "title": "AI SoC Hardware Architect",
+          "company": "Ericsson"
+        },
+        "1135025": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Presentation design role, not an engineering position.",
+          "title": "Presentation Designer",
+          "company": "INFUSE"
+        },
+        "1135030": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Design role, not an engineering position.",
+          "title": "Designer",
+          "company": "RideTEGO"
+        },
+        "1135015": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Administrative scheduling role, not an engineering position.",
+          "title": "Patient Scheduler",
+          "company": "ARStrat"
+        },
+        "1135016": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Content creation role, not an engineering position.",
+          "title": "UGC Creator",
+          "company": "ren"
+        },
+        "1134989": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Digital media/marketing role, not an engineering position.",
+          "title": "Digital Media Specialist",
+          "company": "Rose, Klein & Marias"
+        },
+        "1134990": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Marketing strategy role, not an engineering position.",
+          "title": "Creative Strategist",
+          "company": "New Engen"
+        },
+        "1134953": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Content marketing role, not an engineering position.",
+          "title": "Content Marketing Manager",
+          "company": "Planned Parenthood of Greater New York"
+        },
+        "1134957": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Museum collections role, not an engineering position.",
+          "title": "Museum Specialist ",
+          "company": "Smithsonian Institution"
+        },
+        "1135032": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Recruitment/placement role, not an engineering position.",
+          "title": "Placement Officer",
+          "company": "Grey Sim Learnings Foundation"
+        }
+      }
+    },
+    "product_manager": {
+      "profile": "Senior product manager (B2B SaaS, developer/data products)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            2090984,
+            1134961,
+            147085,
+            147067,
+            147145
+          ],
+          "precision_at_5": 0.6,
+          "success": true,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 82.9
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            2090984,
+            1134961,
+            147085,
+            147067,
+            147145
+          ],
+          "precision_at_5": 0.6,
+          "success": true,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            1134961,
+            145985,
+            146806,
+            147067,
+            146977
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "data product manager",
+        "product manager developer tools",
+        "senior product manager b2b saas"
+      ],
+      "full_rounds": [
+        {
+          "query": "senior product manager B2B SaaS",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        },
+        {
+          "query": "product manager developer tools",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        },
+        {
+          "query": "data product manager",
+          "n_jobs": 8,
+          "n_good": 2,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "data facing",
+        "developer saas",
+        "product manager"
+      ],
+      "judgments": {
+        "2090984": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior PM role in a software/tech marketplace matching the target role family and seniority.",
+          "title": "Senior Product Manager",
+          "company": "Lemon.io"
+        },
+        "1134961": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior platform PM at a B2B SaaS identity-security company, squarely on target.",
+          "title": "Senior Product Manager Platform",
+          "company": "Delinea"
+        },
+        "147085": {
+          "relevant": true,
+          "category": "",
+          "reason": "Senior product owner role in software product development, explicitly allowed by the rubric.",
+          "title": "Sr. Product Owner",
+          "company": "Fortive"
+        },
+        "147067": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "Product-planning role centered on hotel content operations, not software product management.",
+          "title": "Senior Manager, Product Planning",
+          "company": "BCD Travel"
+        },
+        "147145": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "PM role but consumer crypto-exchange chatbot, not B2B SaaS or developer/data products.",
+          "title": "AI Chatbot Product Manager",
+          "company": "Binance"
+        },
+        "146977": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "GTM/sales operations management role, not product management.",
+          "title": "Senior Manager, GTM Operational Excellence",
+          "company": "Remote"
+        },
+        "145985": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Hands-on engineering manager role, explicitly excluded as an engineering role.",
+          "title": "Engineering Manager hands on (x/f/m) - Growth Product",
+          "company": "Alan"
+        },
+        "146615": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Business operations manager role, not product management.",
+          "title": "EOR Business Operations Manager",
+          "company": "Remote"
+        },
+        "147583": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Data-center site strategy/infrastructure consulting role, not a software product role.",
+          "title": "Site Strategy Manager, Data Center Sites - Remote (U.S.)",
+          "company": "AECOM"
+        },
+        "146806": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Sales executive role, explicitly excluded by the rubric.",
+          "title": "EHR Principal Sales Executive, HCLS US Providers",
+          "company": "Amazon.com"
+        },
+        "146605": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Data science leadership role, not product management.",
+          "title": "Assistant Director, Data Science: Renter's Portfolio",
+          "company": "Liberty Mutual"
+        },
+        "143979": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Data analyst role, not product management.",
+          "title": "Senior Data Analyst",
+          "company": "Ruby Labs"
+        },
+        "147130": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer success role, not product management.",
+          "title": "Customer Success Manager",
+          "company": "Cordance"
+        },
+        "1134990": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Marketing/creative agency role, explicitly excluded by the rubric.",
+          "title": "Creative Strategist",
+          "company": "New Engen"
+        },
+        "147122": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer success advisor role, not product management.",
+          "title": "Customer Success Advisor - ASEAN",
+          "company": "Autodesk"
+        },
+        "147123": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Duplicate customer success advisor posting, not product management.",
+          "title": "Customer Success Advisor -ASEAN",
+          "company": "Autodesk"
+        },
+        "1135026": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer success team lead role, not product management.",
+          "title": "Customer Success Team Lead",
+          "company": "Guesty"
+        },
+        "144998": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Project manager role, explicitly excluded by the rubric.",
+          "title": "Customer Facing, Project Manager \u2013 North Carolina",
+          "company": "Agilent Technologies"
+        },
+        "146778": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Biostatistician consultant role in clinical research, unrelated to software product management.",
+          "title": "Principal Statistician Consultant-R&I (Respiratory & Immunology) REMOTE@EU/UK",
+          "company": "ClinChoice"
+        },
+        "143808": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Construction schedule/project management lead, explicitly excluded as project management.",
+          "title": "Area Schedule Lead - Data Center Design, Engineering and Construction",
+          "company": "Meta"
+        },
+        "147073": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Privacy/compliance management role, not product management.",
+          "title": "Privacy Manager",
+          "company": "Nebius"
+        },
+        "2090903": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Data labeling specialist work, neither a product role nor appropriate seniority.",
+          "title": "Data Labeling Specialists",
+          "company": "Workada"
+        },
+        "147119": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Legal/privacy lawyer role, not product management.",
+          "title": "APAC Data Privacy Lawyer - Australia (Part-time, Remote)",
+          "company": "Axiom"
+        }
+      }
+    },
+    "technical_writer": {
+      "profile": "Technical writer (developer docs, API reference, docs-as-code)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            1185979,
+            1135003,
+            147001,
+            145850,
+            1135029
+          ],
+          "precision_at_5": 0.0,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 61.5
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            1185979,
+            1135003,
+            147001,
+            145850,
+            1135029
+          ],
+          "precision_at_5": 0.0,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            2090985,
+            146979,
+            146688,
+            145850,
+            146803
+          ],
+          "precision_at_5": 0.0,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "developer documentation writer",
+        "documentation engineer openapi",
+        "technical writer api documentation"
+      ],
+      "full_rounds": [
+        {
+          "query": "technical writer API documentation",
+          "n_jobs": 8,
+          "n_good": 0,
+          "scorer": "claude"
+        },
+        {
+          "query": "developer documentation writer",
+          "n_jobs": 8,
+          "n_good": 0,
+          "scorer": "claude"
+        },
+        {
+          "query": "documentation engineer openapi",
+          "n_jobs": 8,
+          "n_good": 0,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "code site",
+        "developer writer",
+        "docs technical"
+      ],
+      "judgments": {
+        "1185979": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Generic freelance content/blog writing, explicitly excluded by the rubric.",
+          "title": "Freelance Writer",
+          "company": "IAPWE"
+        },
+        "1135003": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Scriptwriting for clinical educational videos, not documentation for a software product.",
+          "title": "Scriptwriter",
+          "company": "Gritter Francona"
+        },
+        "147001": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Technical support role, not a writing or documentation role.",
+          "title": "Technical Support Representative, Tier 1 (Mexico Remote)",
+          "company": "Turnitin, LLC"
+        },
+        "145850": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Program management role, not technical writing or docs.",
+          "title": "Technical Program Manager",
+          "company": "Phaidra"
+        },
+        "1135029": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Spam-style posting with no substantive role description tied to writing or docs.",
+          "title": "Technical Specialist",
+          "company": "PeopleLink Collaboration Inc."
+        },
+        "1135002": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Video production role, not writing or documentation.",
+          "title": "Video Producer",
+          "company": "Gritter Francona"
+        },
+        "1135039": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Logistics/export documentation coordination, unrelated to software or writing.",
+          "title": "Logistics Coordinator",
+          "company": "Wisemonk"
+        },
+        "1134948": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Procurement and contract administration, unrelated to software documentation.",
+          "title": "Procurement Associate",
+          "company": "UNOPS"
+        },
+        "1134950": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Water treatment plant operator, unrelated field.",
+          "title": "Exuma Operator",
+          "company": "Seven Seas Water Group"
+        },
+        "1134999": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Care/support services role, not writing or software-related.",
+          "title": "Care Specialist",
+          "company": "Empathy"
+        },
+        "1134995": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Visual/animation artist role, not writing or documentation.",
+          "title": "Animated Graphic Visual Artist",
+          "company": "Gritter Francona"
+        },
+        "1134962": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Administrative and operations role at an academy, unrelated to software docs.",
+          "title": "Admin & Operation English Speaker",
+          "company": "KitaLulus"
+        },
+        "1134952": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Sales leadership role, unrelated to writing or software products.",
+          "title": "Director Business Development Army",
+          "company": "NOBLE"
+        },
+        "2090985": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Communications/marketing management, excluded as marketing rather than technical writing.",
+          "title": "Communications Manager",
+          "company": "Lemon.io"
+        },
+        "146979": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Site reliability engineering role, rubric excludes engineering roles.",
+          "title": "Senior Site Reliability Engineer (Remote Build)",
+          "company": "Remote"
+        },
+        "146688": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Product marketing role, excluded as marketing despite the technical subject matter.",
+          "title": "Technical Product Marketer, k0rdent AI - remote in the US",
+          "company": "Mirantis"
+        },
+        "146803": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Security engineering management, rubric excludes engineering roles.",
+          "title": "Application Security Engineering Manager",
+          "company": "Synthesia"
+        },
+        "146321": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Customer education program management for a recruiting product, not developer docs or technical writing.",
+          "title": "Customer Education Program Manager",
+          "company": "Ashby"
+        },
+        "144089": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Site reliability engineering role, rubric excludes engineering roles.",
+          "title": "Senior Site Reliability Engineer",
+          "company": "Cribl"
+        },
+        "1134961": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Product management role, not technical writing or documentation.",
+          "title": "Senior Product Manager Platform",
+          "company": "Delinea"
+        },
+        "146474": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "SEO strategy role, explicitly excluded as generic SEO/content work.",
+          "title": "SEO Strategist - Canada",
+          "company": "Brafton"
+        },
+        "146654": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Environmental/construction consulting, unrelated to software documentation.",
+          "title": "Project Environmental Professional",
+          "company": "Socotec"
+        },
+        "147583": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Data center site strategy/real estate role, unrelated to writing or docs.",
+          "title": "Site Strategy Manager, Data Center Sites - Remote (U.S.)",
+          "company": "AECOM"
+        },
+        "1135001": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Videography role, not writing or documentation.",
+          "title": "Videographer",
+          "company": "Gritter Francona"
+        },
+        "2090903": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Data labeling and content categorization, not technical writing.",
+          "title": "Data Labeling Specialists",
+          "company": "Workada"
+        },
+        "1134994": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Voice acting role, not writing or documentation.",
+          "title": "Voice Actor",
+          "company": "Gritter Francona"
+        },
+        "1749306": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "SEO-driven marketing copywriting, explicitly excluded by the rubric.",
+          "title": "Freelance Copywriter",
+          "company": "Coalition Technologies "
+        },
+        "2090989": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Accounts payable clerical role, unrelated to software or writing.",
+          "title": "Assistant Account Payable",
+          "company": "The Obesity Society"
+        },
+        "1135004": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Yacht cleaning role, entirely unrelated field.",
+          "title": "Yacht Cleaner",
+          "company": "Travelopia"
+        },
+        "1134897": {
+          "relevant": false,
+          "category": "too-generic",
+          "reason": "Vague 'create your own role' posting with no defined technical writing or docs position.",
+          "title": "Create Your Own Role",
+          "company": "NewsletterJobs.io"
+        }
+      }
+    },
+    "career_changer": {
+      "profile": "EDGE CASE \u2014 junior web developer, career changer from teaching (thin signal)",
+      "arms": {
+        "full": {
+          "arm": "full",
+          "top_ids": [
+            1134921,
+            1134935,
+            1135014,
+            1134912,
+            1134989
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 80.8
+        },
+        "round1": {
+          "arm": "round1",
+          "top_ids": [
+            1134921,
+            1134935,
+            1135014,
+            1134912,
+            1134925
+          ],
+          "precision_at_5": 0.2,
+          "success": false,
+          "rounds_used": 1,
+          "early_stop": false,
+          "recovery_opportunity": true,
+          "wall_seconds": 0.0
+        },
+        "fallback": {
+          "arm": "fallback",
+          "top_ids": [
+            146923,
+            1134950,
+            147189,
+            146855,
+            143979
+          ],
+          "precision_at_5": 0.0,
+          "success": false,
+          "rounds_used": 3,
+          "early_stop": false,
+          "recovery_opportunity": false,
+          "wall_seconds": 0.1
+        }
+      },
+      "full_queries": [
+        "junior frontend developer react",
+        "junior javascript developer",
+        "junior web developer wordpress"
+      ],
+      "full_rounds": [
+        {
+          "query": "junior frontend developer react",
+          "n_jobs": 8,
+          "n_good": 0,
+          "scorer": "claude"
+        },
+        {
+          "query": "junior web developer wordpress",
+          "n_jobs": 8,
+          "n_good": 0,
+          "scorer": "claude"
+        },
+        {
+          "query": "junior javascript developer",
+          "n_jobs": 8,
+          "n_good": 0,
+          "scorer": "claude"
+        }
+      ],
+      "fallback_queries": [
+        "developer junior",
+        "high school",
+        "math teacher"
+      ],
+      "judgments": {
+        "1134921": {
+          "relevant": true,
+          "category": "",
+          "reason": "Junior software engineer role is an entry-level dev position matching the junior-dev criterion.",
+          "title": "Junior Software Engineer",
+          "company": "Lockwood Publishing Ltd"
+        },
+        "1134935": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "QA testing is not a web development role.",
+          "title": "Junior QA Tester",
+          "company": "Work Force Nexus"
+        },
+        "1135014": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "React Native mobile engineering is adjacent to but not junior web development, and no junior level is indicated.",
+          "title": "React Native Engineer",
+          "company": "HelpBnk"
+        },
+        "1134912": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Power BI analytics is a data role, not web development.",
+          "title": "Junior Power BI Analyst",
+          "company": "StatusNeo"
+        },
+        "1134989": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Digital media/marketing role with no development component.",
+          "title": "Digital Media Specialist",
+          "company": "Rose, Klein & Marias"
+        },
+        "1134923": {
+          "relevant": false,
+          "category": "adjacent-stack",
+          "reason": "General Python contract development, not junior web development, with no junior/entry-level signal.",
+          "title": "Python Developer",
+          "company": "YO IT Consulting"
+        },
+        "1134925": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Graphic design role with no development component.",
+          "title": "Graphic Designer",
+          "company": "YouFibre"
+        },
+        "1134990": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Marketing/creative strategy role, not engineering.",
+          "title": "Creative Strategist",
+          "company": "New Engen"
+        },
+        "1135025": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Presentation design role with no development component.",
+          "title": "Presentation Designer",
+          "company": "INFUSE"
+        },
+        "1135002": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Video production role, not engineering.",
+          "title": "Video Producer",
+          "company": "Gritter Francona"
+        },
+        "1134914": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Administrative virtual assistant role, not engineering.",
+          "title": "Virtual Assistant",
+          "company": "Somewhere"
+        },
+        "1134947": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Hospital courier/logistics role, not engineering.",
+          "title": "COURIER",
+          "company": "Doctors Hospital"
+        },
+        "1134948": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Procurement/contract administration role, not engineering.",
+          "title": "Procurement Associate",
+          "company": "UNOPS"
+        },
+        "1134949": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Retail merchandising role, not engineering.",
+          "title": "Merchandiser",
+          "company": "Brydens Antigua"
+        },
+        "146923": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Consumer-products educator role with no development component.",
+          "title": "Regional Educator - West",
+          "company": "Colgate-Palmolive"
+        },
+        "1134950": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Water utility operations role, not software engineering.",
+          "title": "Exuma Operator",
+          "company": "Seven Seas Water Group"
+        },
+        "147189": {
+          "relevant": false,
+          "category": "seniority-mismatch",
+          "reason": "Senior AI compiler engineer role far above junior level and outside web development.",
+          "title": "AI Compiler Engineer",
+          "company": "Ericsson"
+        },
+        "146855": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Sales engineering is a sales role, not a development role.",
+          "title": "Graduate Sales Engineer",
+          "company": "SOTI"
+        },
+        "143979": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Senior data analyst is a data role, not web development.",
+          "title": "Senior Data Analyst",
+          "company": "Ruby Labs"
+        },
+        "146605": {
+          "relevant": false,
+          "category": "wrong-role-family",
+          "reason": "Director-level data science leadership role, not junior web development.",
+          "title": "Assistant Director, Data Science: Renter's Portfolio",
+          "company": "Liberty Mutual"
+        },
+        "1134954": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Executive CEO position, not a development role despite the ed-tech domain.",
+          "title": "Date Posted",
+          "company": "OptN Inc"
+        },
+        "1134955": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Customer engagement role, not engineering.",
+          "title": "Associate Customer Engagement",
+          "company": "The Coca-Cola Company"
+        },
+        "146673": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Recruiting/talent acquisition role, not engineering.",
+          "title": "Talent Acquisition Partner",
+          "company": "Ericsson"
+        },
+        "2090949": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Commission-based financial sales role, not engineering.",
+          "title": "High-Ticket Financial Sales Specialist & Team Lead Track",
+          "company": "FSE LLC"
+        },
+        "1134994": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Voice acting role, not engineering.",
+          "title": "Voice Actor",
+          "company": "Gritter Francona"
+        },
+        "1135015": {
+          "relevant": false,
+          "category": "non-engineering",
+          "reason": "Administrative patient scheduling role, not engineering.",
+          "title": "Patient Scheduler",
+          "company": "ARStrat"
+        }
+      }
+    }
+  },
+  "corpus_size": 241,
+  "summary": {
+    "full": {
+      "n_cases": 12,
+      "success_rate": 0.16666666666666666,
+      "mean_precision_at_5": 0.3166666666666667,
+      "mean_rounds": 2.8333333333333335,
+      "early_stop_rate": 0.08333333333333333,
+      "recovery_opportunities": 11,
+      "recovered": 1,
+      "recovery_rate": 0.09090909090909091
+    },
+    "round1": {
+      "n_cases": 12,
+      "success_rate": 0.16666666666666666,
+      "mean_precision_at_5": 0.26666666666666666,
+      "mean_rounds": 1.0,
+      "early_stop_rate": 0.0,
+      "recovery_opportunities": 11,
+      "recovered": 1,
+      "recovery_rate": 0.09090909090909091
+    },
+    "fallback": {
+      "n_cases": 12,
+      "success_rate": 0.08333333333333333,
+      "mean_precision_at_5": 0.20000000000000004,
+      "mean_rounds": 3.0,
+      "early_stop_rate": 0.0,
+      "recovery_opportunities": 0,
+      "recovered": 0,
+      "recovery_rate": null
+    }
+  },
+  "failure_categories": {
+    "non-engineering": 136,
+    "wrong-role-family": 87,
+    "adjacent-stack": 24,
+    "too-generic": 19,
+    "seniority-mismatch": 11,
+    "other": 3
+  }
+}
