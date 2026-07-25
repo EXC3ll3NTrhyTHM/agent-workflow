@@ -19,11 +19,6 @@ recovery rate. Full writeup in `docs/evaluation.md`; raw results in
 
 ## What worked
 
-<<<<<<< Updated upstream
-- The digest's very first dry-run against my real database was immediately useful: it surfaced three 7.0 jobs (Nebius, A.Team, Mitre Media) that I had never been alerted about because they sat below the instant threshold. The two-tier design earned its keep before it even shipped.
-- The pitch prompt ("use ONLY facts present in the résumé") produced surprisingly specific output on the first try — it cited my on-prem LLM deployment, the genetic prompt-optimization work, and H100 orchestration for the NTT DATA GenAI role, with nothing invented.
-- The live SQLite database migrated in place (new `meta` table + `pitch` column) with zero manual steps — the additive-migration approach meant Week 4's data just kept working.
-=======
 - The three-arm design answered the question I actually cared about at almost
   no extra cost: the round-1 ablation is reconstructed from the full run's
   logs, and the fallback arm needs no Claude calls at all.
@@ -32,7 +27,6 @@ recovery rate. Full writeup in `docs/evaluation.md`; raw results in
   conservative).
 - Numbers: full agent 2/12 task success (17%), mean P@5 0.32 vs 0.27 for the
   no-refinement ablation and 0.20 for the keyword baseline.
->>>>>>> Stashed changes
 
 ## What Failed or Surprised me
 

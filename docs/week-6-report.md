@@ -30,6 +30,7 @@ Name: Blake Simpson  Week: 6 (Evaluation) Track: Track 3 — Agent
 - Results: `docs/eval/results.md` (summary tables), `docs/eval/results.json`
   (per-posting judgments), `docs/evaluation.md` (full writeup — this becomes
   the final report's evaluation section)
+- Git commit: https://github.com/EXC3ll3NTrhyTHM/agent-workflow/commit/e24c7b2ba32f8892b3613a03c2deb44334276007
 
 ## Plan for Next week
 
