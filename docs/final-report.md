@@ -39,17 +39,27 @@ reversed my priorities, which is exactly what it was for.
 
 ### Architecture
 
-```
-             ┌────────────────────────── nightly cron (07:30) ─────────────────────────┐
-             │                                                                         │
- résumé ──▶ derive query ──▶ search corpus ──▶ score vs résumé ──▶ enough good matches?│
- (PDF/md)     (Claude)      (5 feeds, local)      (Claude)          │yes         │no   │
-             │                   ▲                                  ▼            ▼     │
-             │                   └── refine query (Claude), ◀── alert ≥8    hopeless?──▶ stop,
-             │                       never repeat a query      + pitch              report scarcity
-             │                                                 (email)                 │
-             └─────────────────────────────────────────────────────────────────────────┘
-   weekly cron (Sun 17:00): job-scout --digest — everything ≥6.5 since last digest, from SQLite only
+```mermaid
+%%{init: {'theme': 'neutral', 'flowchart': {'curve': 'basis'}}}%%
+flowchart LR
+    subgraph nightly ["nightly cron run (07:30, home server)"]
+        direction LR
+        R([résumé<br/>PDF / Markdown]) --> D["derive query<br/><i>Claude</i>"]
+        D --> S["search corpus<br/>5 feeds · ~700 jobs<br/>merged, searched locally"]
+        S --> C["score vs résumé<br/>0-10 · <i>Claude</i>"]
+        C --> G{enough good<br/>matches?}
+        G -->|"thin round - refine,<br/>never repeat a query"| D
+        G -->|yes| A["email alert (≥8)<br/>+ 3 pitch bullets"]
+        G -->|hopeless| X["stop early:<br/>&quot;nothing scored 7+ today&quot;"]
+    end
+    DB[("SQLite memory<br/>scores · tried queries · alert dedup")]
+    C -.-> DB
+    A -.-> DB
+    DB -.-> W["Sunday --digest<br/>≥6.5 recap email (no LLM)"]
+
+    style A fill:#dcefe2,stroke:#2e7d4f
+    style X fill:#fdeaea,stroke:#b3564d
+    style DB fill:#eef1f6,stroke:#6b7a99
 ```
 
 The agent loop (`src/job_scout/agent.py`) is deliberately small but genuine:
