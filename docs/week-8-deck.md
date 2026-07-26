@@ -15,7 +15,7 @@ paginate: true
 
 ### An agent that hunts jobs while you sleep
 
-**Blake Simpson** · Track 3 — Agent
+**Blake Simpson** · Track 3 - Agent
 
 *Reads your résumé, scans five job boards nightly, and emails you only when something is genuinely worth applying to.*
 
@@ -36,9 +36,9 @@ Your résumé is the standing search. An email from the system means **worth you
 
 ---
 
-<!-- SLIDE 3: System Architecture — walk through in 90 seconds -->
+<!-- SLIDE 3: System Architecture - walk through in 90 seconds -->
 
-## Architecture — one nightly cron run
+## Architecture - one nightly cron run
 
 ![w:1120](architecture.svg)
 
@@ -52,7 +52,7 @@ Your résumé is the standing search. An email from the system means **worth you
 
 <!-- SLIDE 4: Live Demo, success case 1 -->
 
-## Live demo 1 — my résumé
+## Live demo 1 - my résumé
 
 ```
 $ job-scout resume.pdf
@@ -60,7 +60,7 @@ $ job-scout resume.pdf
 
 Watch for the agent behaviors:
 
-1. Derives a query from the résumé — no keywords from me
+1. Derives a query from the résumé - no keywords from me
 2. Scores only *new* postings against it
 3. Thin round → **refines its own query** (and never repeats one)
 4. Stops the moment it has 3 good matches
@@ -73,20 +73,20 @@ Watch for the agent behaviors:
 
 <!-- SLIDE 5: Live Demo, success case 2 -->
 
-## Live demo 2 — someone else's résumé
+## Live demo 2 - someone else's résumé
 
 ```
 $ job-scout tests/fixtures/resume_product_manager.md
 ```
 
-A non-engineering profile — same agent, zero configuration.
+A non-engineering profile - same agent, zero configuration.
 
 Why this case is interesting: keyword matching **can't** tell a product
-manager role from product-adjacent engineering roles. LLM scoring can —
+manager role from product-adjacent engineering roles. LLM scoring can -
 P@5 1.00 vs 0.80 for the keyword baseline (0.60 vs 0.20 on the starved
 Week 6 corpus).
 
-<!-- Pre-run output in the second terminal if time is tight —
+<!-- Pre-run output in the second terminal if time is tight -
      narrate from it rather than waiting live. -->
 
 ---
@@ -100,9 +100,9 @@ $ job-scout tests/fixtures/resume_technical_writer.md
 ```
 
 Zero relevant postings exist in today's corpus. The agent's queries are
-*right* — the supply isn't there.
+*right* - the supply isn't there.
 
-**What it used to do (Week 6):** pad a confident, entirely wrong top-5 —
+**What it used to do (Week 6):** pad a confident, entirely wrong top-5 -
 adjacent roles scored 6–9, search fell back to "something rather than nothing."
 
 **What it does now:** two rounds, nothing scores 7+, stops early:
@@ -124,11 +124,11 @@ An agent you can trust is one that can come back empty-handed.
 | Early-stop rate / mean rounds | 8% / 2.8 | **67%** / 2.1 |
 | No-Claude baseline P@5 | 0.20 | 0.48 |
 
-**Headline:** the agent has passed every case that was passable — all 4
+**Headline:** the agent has passed every case that was passable - all 4
 remaining fails had ≤2 relevant postings in the entire 710-posting corpus,
 and its top-5 contained every one that existed.
 
-<!-- Honest note, say out loud: the baseline jumped too — most of the gain
+<!-- Honest note, say out loud: the baseline jumped too - most of the gain
      was supply. That IS the finding: evaluate before optimizing. -->
 
 ---
@@ -137,12 +137,12 @@ and its top-5 contained every one that existed.
 
 ## What I learned
 
-1. **Evaluate before optimizing** — the eval reversed my roadmap: the fix
+1. **Evaluate before optimizing** - the eval reversed my roadmap: the fix
    that took success from 2/12 to 8/12 was adding RSS feeds, not smarter
    prompts
-2. **Condition metrics on feasibility** — 17% success meant *starved*, not
+2. **Condition metrics on feasibility** - 17% success meant *starved*, not
    *broken*; the agent was passing every winnable case all along
-3. **Design the failure path** — every layer chose "return something," and
+3. **Design the failure path** - every layer chose "return something," and
    together they produced confident nonsense. "Nothing today" must be a
    first-class outcome.
 
@@ -152,7 +152,7 @@ and its top-5 contained every one that existed.
 
 ## If I had more time…
 
-**Fix first:** per-profile source selection — a technical writer's résumé
+**Fix first:** per-profile source selection - a technical writer's résumé
 deserves writing-focused boards, not five tech feeds. Every remaining eval
 failure is this one problem.
 
@@ -168,7 +168,7 @@ résumé-upload web UI + chat over stored postings · multi-user.
 
 github.com/EXC3ll3NTrhyTHM/agent-workflow
 
-*Job Scout — résumé in, honest email out.*
+*Job Scout - résumé in, honest email out.*
 
 ---
 
@@ -179,11 +179,11 @@ github.com/EXC3ll3NTrhyTHM/agent-workflow
 - Week 4: every Remotive query returned **identical results**
 - Diagnosis via the `age` response header: a stale CDN cache ignoring the
   search param entirely
-- Fix: trust no single board's search — pull full feeds from 5 sources,
+- Fix: trust no single board's search - pull full feeds from 5 sources,
   merge, dedupe, search client-side
 
 <!-- ============================================================
-FINAL DEMO RUN-OF-SHOW — 8 min demo + 4 min Q&A
+FINAL DEMO RUN-OF-SHOW - 8 min demo + 4 min Q&A
 
 0:00–0:45  Slides 1-2: résumé in, email out, nothing in between.
 0:45–2:15  Slide 3: architecture walkthrough (90s).
@@ -191,25 +191,27 @@ FINAL DEMO RUN-OF-SHOW — 8 min demo + 4 min Q&A
            Start it, then narrate over the latency; flip to slide 3
            while it runs. Finish on ranked list + alert-email
            screenshot.
-4:30–5:30  DEMO 2 (slide 5): product_manager fixture — pre-run
+4:30–5:30  DEMO 2 (slide 5): product_manager fixture - pre-run
            output in second terminal; run live only if ahead of
            schedule.
 5:30–6:45  FAILURE CASE LIVE (slide 6): technical_writer fixture.
            It's fast (~35s, stops at round 2). Say the last line
            on the slide out loud.
 6:45–7:30  Slide 7: eval table. Name the honest caveat (baseline
-           jumped too — supply).
+           jumped too - supply).
 7:30–8:00  Slide 8: lessons, one breath each. Land on "evaluate
            before optimizing." Slide 9 only if time.
 
 PREP (day before, on the presentation machine):
 - Run BOTH demo commands + failure case; leave outputs scrolled in
   a second terminal (safety net if wifi/Claude stalls).
-- Re-check technical_writer still fails — corpus is live; if a tech-
+- Re-check technical_writer still fails - corpus is live; if a tech-
   writer job appeared overnight, swap in mobile_dev or data_engineer.
-- EMAIL_DRY_RUN=1 exported for live runs — no real email mid-demo.
+- Emails are LIVE (they go to my own inbox - showing the alert
+  arrive in real time is part of the demo). Practice runs use
+  DB_PATH=data/practice.db so the real DB can still alert fresh.
 - Alert-email screenshot embedded in slide deck or open in a tab.
-- If something breaks live: narrate it — "this is a failure mode
+- If something breaks live: narrate it - "this is a failure mode
   from Section 5 of the report."
 
 Q&A backup talking points:
