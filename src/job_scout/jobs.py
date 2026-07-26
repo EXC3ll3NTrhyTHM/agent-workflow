@@ -9,17 +9,22 @@ the agent's queries meaningful again and is resilient to any single source
 degrading — if one feed is down or cached, the others still provide candidates.
 
 Sources (all public, no auth):
-- RemoteOK  — primary; English, tech-focused, ~100 jobs/feed.
-- Jobicy    — secondary; English, remote-only, ~100 jobs/feed with structured
-              industry/level tags.
-- Remotive  — tertiary; degraded (see above) but still adds ~32 candidates.
+- We Work Remotely — largest; main RSS feed + 7 category feeds, ~400-500 jobs.
+                     Added in Week 7 after the evaluation showed corpus supply
+                     was the binding constraint (10/12 cases infeasible on the
+                     old 241-posting corpus).
+- RemoteOK         — English, tech-focused, ~100 jobs/feed.
+- Jobicy           — English, remote-only, ~100 jobs/feed with structured
+                     industry/level tags.
+- Working Nomads   — small (~40) but covers non-engineering categories.
+- Remotive         — degraded (see above) but still adds ~30 candidates.
 """
 
 from __future__ import annotations
 
 import re
 
-from . import jobicy, remoteok, remotive
+from . import jobicy, remoteok, remotive, weworkremotely, workingnomads
 from .remotive import Job
 
 # Process-level cache: the agent re-queries the corpus once per round with a
@@ -38,7 +43,13 @@ def load_corpus(*, force: bool = False) -> list[Job]:
         return _corpus
 
     jobs: list[Job] = []
-    for fetch in (_safe(remoteok.fetch_jobs), _safe(jobicy.fetch_jobs), _safe(_remotive_all)):
+    for fetch in (
+        _safe(weworkremotely.fetch_jobs),
+        _safe(remoteok.fetch_jobs),
+        _safe(jobicy.fetch_jobs),
+        _safe(workingnomads.fetch_jobs),
+        _safe(_remotive_all),
+    ):
         jobs.extend(fetch())
 
     seen: set[tuple[str, str]] = set()
@@ -61,12 +72,17 @@ def search(query: str, *, limit: int = 8) -> list[Job]:
     high-signal fields (title, tags), then by a weighted total that includes
     description hits. Terms match at word starts only ("api" matches "APIs"
     but not "therapist"; "ml" matches "MLOps" but not "html") — plain substring
-    matching let generic postings outrank real matches. If nothing matches,
-    returns the head of the corpus so the pipeline still produces candidates."""
+    matching let generic postings outrank real matches.
+
+    Returns an EMPTY list when nothing matches. It used to return the head of
+    the corpus instead, but the Week 6 evaluation showed that padding turned
+    "no relevant postings exist" into a confident wrong top-5 (wrong-role-family
+    was 18/41 top-5 misses); an honest empty result lets the agent report
+    scarcity and stop early."""
     corpus = load_corpus()
     terms = [t for t in _terms(query) if t not in _STOPWORDS]
     if not terms:
-        return corpus[:limit]
+        return []
     patterns = [re.compile(rf"(?<![a-z0-9]){re.escape(t)}") for t in terms]
 
     ranked: list[tuple[int, int, Job]] = []
@@ -83,7 +99,7 @@ def search(query: str, *, limit: int = 8) -> list[Job]:
             ranked.append((strong, score, job))
 
     if not ranked:
-        return corpus[:limit]
+        return []
     ranked.sort(key=lambda entry: (entry[0], entry[1]), reverse=True)
     return [job for _, _, job in ranked[:limit]]
 

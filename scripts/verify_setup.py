@@ -89,7 +89,7 @@ def main() -> int:
     results = [check_remotive(), check_claude()]
     print()
     if all(results):
-        print("All checks passed (or skipped). You're ready for Week 3.")
+        print("All checks passed (or skipped). Job Scout is ready to run.")
         return 0
     print("Some checks failed — see messages above.")
     return 1

@@ -197,3 +197,43 @@ Ranked by measured impact:
    surface "1 real match today" honestly — every padded slot in an alert email
    is trust spent.
 4. (Done this week) the wasted final-round `derive_query` call is removed.
+
+## 9. Week 7 follow-up: the fixes, re-measured
+
+All three recommendations above were implemented in Week 7 (corpus expanded to
+five sources, padding removed + scorer calibrated, hopelessness-aware stop
+rule) and the same 12 cases were re-run with the same judge on 2026-07-25
+(corpus snapshot: 710 postings, ~3× Week 6).
+
+| Arm | Task success | Mean P@5 | Mean rounds | Early-stop | Error recovery |
+|---|---|---|---|---|---|
+| **full** (Wk 6 → Wk 7) | 2/12 → **8/12** | 0.32 → **0.65** | 2.8 → 2.1 | 8% → 67% | 1/11 → 5/9 |
+| round1 | 2/12 → 7/12 | 0.27 → 0.55 | 1.0 | — | — |
+| fallback | 1/12 → 7/12 | 0.20 → 0.48 | 3.0 → 2.0 | — | — |
+
+Feasibility-conditioned: feasible cases went 2 → 8, and the agent passed
+**8/8** (it has now passed every passable case in both runs). The four
+remaining fails (mobile_dev, data_engineer, technical_writer, career_changer)
+had 1, 1, 0 and 2 relevant postings respectively in the entire corpus, and in
+each the agent's top-5 contained every relevant posting that existed — the
+residual misses are pure supply.
+
+Two notes on the stop rule, from this run's per-round data:
+
+- The "two queries surfaced nothing new" trigger alone rarely fires on a
+  700-posting corpus (hopeless queries find new-but-irrelevant postings, not
+  nothing), so a second trigger was added: **zero good matches after two full
+  rounds**. It fired on exactly the designed-for cases (mobile_dev,
+  technical_writer — both stopped at round 2; round 3 in the Week 6-style run
+  had contributed nothing).
+- A stricter "no *increase* in good matches for two rounds" rule was rejected
+  against the data: python_backend plateaued at 2 good matches for two rounds
+  and found its third in round 3 — that rule would have converted a PASS into
+  a fail to save one round.
+
+The fallback baseline's own jump (1/12 → 7/12) is worth stating plainly: most
+of the headline improvement came from supply, not smarter agent logic — which
+is the Week 6 conclusion ("supply before smarts") validated by intervention.
+The agentic parts still separate from the baseline where judgment is hard:
++0.17 mean P@5 over keyword scoring, +1 task success over the no-refinement
+ablation, and 5/9 error recovery.

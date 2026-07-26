@@ -6,9 +6,7 @@ requires-python = ">=3.11"
 # Claude is reached via the `claude` CLI (Claude Code), installed separately —
 # not a pip dependency. See README → Authentication.
 dependencies = [
-    "langgraph>=0.2",
     "requests>=2.31",
-    "pydantic>=2.6",
     "pypdf>=4.0",
     "python-dotenv>=1.0",
 ]

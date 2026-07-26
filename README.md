@@ -8,7 +8,27 @@ An AI agent that reads an uploaded résumé and searches the web for jobs that m
 
 The job market is competitive, and manually scanning job boards is slow and repetitive. Job Scout Agent automates the search: it uses your résumé as the search criteria, queries job boards on a schedule, ranks every posting by how well it matches you, and surfaces the best ones. When a posting is an exceptional match (8/10 or higher), it sends you an email alert so you can review and apply.
 
-If a search doesn't return enough good results, the agent adjusts its own search criteria and tries again — while remembering which queries it has already run so it doesn't repeat itself.
+If a search doesn't return enough good results, the agent adjusts its own search criteria and tries again — while remembering which queries it has already run so it doesn't repeat itself. If two adjusted queries in a row turn up nothing new, it concludes today's corpus has nothing for this résumé and says so, instead of dressing up weak matches.
+
+## Quickstart (fresh clone)
+
+Prereqs: Python 3.11+, and [Claude Code](https://claude.com/claude-code) installed with `claude login` run once (or `ANTHROPIC_API_KEY` set — see [Authentication](#authentication)).
+
+```sh
+git clone https://github.com/EXC3ll3NTrhyTHM/agent-workflow.git
+cd agent-workflow
+python3 -m venv .venv
+.venv/bin/pip install -e ".[dev]"
+
+cp .env.example .env          # then set CLAUDE_PATH (`which claude`) and RESUME_PATH
+.venv/bin/python scripts/verify_setup.py   # checks job APIs + Claude CLI reachability
+
+.venv/bin/job-scout path/to/your-resume.pdf   # run a scan (PDF, .md or .txt)
+```
+
+Email alerts are optional: without Gmail credentials in `.env` the alert step
+runs in dry-run mode and prints the email to stdout instead of sending it.
+Tests run offline (no network, no Claude): `.venv/bin/python -m pytest tests/`.
 
 ## Who It's For
 
@@ -30,12 +50,12 @@ Job seekers who want **passive, high-signal** job discovery: good-quality matche
 
 The scan workflow runs nightly (07:30, scheduled on the home server):
 
-1. **Query** the aggregated job corpus (RemoteOK + Jobicy + Remotive feeds, searched client-side) for remote postings.
+1. **Query** the aggregated job corpus (We Work Remotely + RemoteOK + Jobicy + Working Nomads + Remotive feeds — ~700 unique postings, searched client-side) for remote postings.
 2. **Rank** each posting against the résumé with an LLM, producing a 0–10 match score.
 3. **Decide** per posting: if the score is ≥ 8, send an email alert (deduped — never twice for the same posting); otherwise add it to the ranked listing.
 4. **Pitch**: for each posting that makes the alert email, the LLM drafts three
    "why I'm a fit" bullets grounded in the résumé, included in the email.
-5. **Refine** if results are insufficient: adjust the search criteria and re-query, tracking already-tried queries to avoid repeats.
+5. **Refine** if results are insufficient: adjust the search criteria and re-query, tracking already-tried queries to avoid repeats — and **stop honestly** when the search looks hopeless (two dead-end queries in a row, or zero good matches after two full rounds), reporting scarcity instead of padding the list with weak matches.
 
 A second, cheaper workflow runs weekly (Sunday 17:00): `job-scout --digest`
 emails a recap of everything scored ≥ 6.5 since the last digest — the
@@ -68,10 +88,10 @@ send duplicate alerts.
 
 | Layer | Choice |
 |-------|--------|
-| Agent orchestration | [LangGraph](https://langchain-ai.github.io/langgraph/) |
+| Agent orchestration | Plain Python loop (`src/job_scout/agent.py`) — the control flow is linear enough that a framework would obscure it |
 | Backend | Python |
 | LLM | [Claude](https://www.anthropic.com/claude), called via the `claude` CLI (Claude Code) as a subprocess |
-| Job data | [RemoteOK](https://remoteok.com/api) + [Jobicy](https://jobicy.com/jobs-rss-feed) + [Remotive](https://remotive.com/api/remote-jobs) feeds (public, no auth), merged and searched client-side |
+| Job data | [We Work Remotely](https://weworkremotely.com) + [RemoteOK](https://remoteok.com/api) + [Jobicy](https://jobicy.com/api/v2/remote-jobs) + [Working Nomads](https://www.workingnomads.com/api/exposed_jobs/) + [Remotive](https://remotive.com/api/remote-jobs) feeds (public, no auth), merged and searched client-side |
 | State | SQLite (tried queries, alerted jobs, ranked listings) |
 | Email | Gmail SMTP |
 | Résumé | Local file uploaded by the user (PDF or plain text / Markdown) |
@@ -132,7 +152,7 @@ Verify the setup on any host: `python scripts/verify_setup.py`
 
 ## Data & API Access
 
-- **RemoteOK / Jobicy / Remotive APIs** — public, no authentication required.
+- **We Work Remotely / RemoteOK / Jobicy / Working Nomads / Remotive feeds** — public, no authentication required.
 - **Gmail SMTP** — public server; requires app credentials to be configured
   (`GMAIL_ADDRESS`, `GMAIL_APP_PASSWORD`, `ALERT_RECIPIENT`; without them the
   alert step runs in dry-run mode and prints the email instead of sending).
@@ -140,17 +160,22 @@ Verify the setup on any host: `python scripts/verify_setup.py`
 
 ## Status
 
-🚧 Week 5: the agent now runs itself. Nightly scheduled scan + instant alerts
-with LLM-drafted "why I'm a fit" pitches, and a weekly digest
-(`job-scout --digest`) covering the borderline matches (≥ 6.5) that never
-tripped an instant alert. Run a scan with `job-scout` (or
-`python scripts/run_baseline.py` for the fixture suite); tests in `tests/`
-run offline with `pytest`.
+🏁 Week 7: polish driven by the Week 6 evaluation. The eval showed the three
+biggest problems were corpus supply (10/12 test cases had <3 relevant postings
+in a 241-posting corpus), padding (confident wrong top-5s when nothing relevant
+existed), and a stop rule that couldn't detect hopeless searches. Fixed all
+three: the corpus now aggregates five sources (~700 unique postings, ~3× more),
+search returns an honest empty result instead of padding, the scorer is
+calibrated to cap wrong-role-family postings at 3, and the agent stops when the
+search looks hopeless. Re-running the same 12-case suite: task success
+2/12 → 8/12, mean precision@5 0.32 → 0.65, and 8/8 on cases where success was
+feasible — every remaining miss is a posting the corpus never stocked. See
+`docs/evaluation.md` §9 for the before/after numbers and `docs/final-report.md`
+for the full write-up.
 
-Earlier: Week 4 midpoint — résumé → search → score → ranked list → email alert,
-end to end.
-Job data comes from a three-source corpus (RemoteOK + Jobicy + Remotive)
-filtered client-side, after Remotive's own search API was found to be serving a
-stale CDN cache that ignores the query — see `docs/week-4-midpoint.md` for the
-midpoint evidence (recall before/after, score-stability results) and
-`docs/weekly-progress-report.md` for the Week 3 write-up.
+Earlier milestones: Week 6 — 12-case evaluation harness with an LLM judge and
+failure taxonomy (`scripts/run_eval.py`, `docs/eval/`). Week 5 — scheduled
+nightly scan + weekly digest. Week 4 midpoint — résumé → search → score →
+ranked list → email alert end to end; multi-source corpus workaround after
+Remotive's search API was found serving a stale CDN cache that ignores the
+query (`docs/week-4-midpoint.md`).

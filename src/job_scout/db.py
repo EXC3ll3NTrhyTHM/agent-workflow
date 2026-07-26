@@ -13,7 +13,7 @@ from typing import Iterator
 
 _SCHEMA = """
 CREATE TABLE IF NOT EXISTS jobs (
-    id           INTEGER PRIMARY KEY,        -- Remotive job id
+    id           INTEGER PRIMARY KEY,        -- source job id (or stable digest, see ids.py)
     title        TEXT NOT NULL,
     company      TEXT NOT NULL,
     url          TEXT NOT NULL,
@@ -45,6 +45,7 @@ def _migrate(conn: sqlite3.Connection) -> None:
 
 @contextmanager
 def connect(db_path: str | Path) -> Iterator[sqlite3.Connection]:
+    """Open (creating/migrating if needed) the DB; commits on clean exit."""
     Path(db_path).parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row

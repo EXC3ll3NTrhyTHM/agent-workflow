@@ -97,7 +97,13 @@ def _build_scoring_prompt(resume_text: str, jobs: list[Job], *, desc_chars: int)
     return (
         "You are a job-matching assistant. Score how well each job posting "
         "matches the candidate's résumé, from 0 (no fit) to 10 (excellent fit). "
-        "Judge on skills, seniority, and domain overlap.\n\n"
+        "Judge on skills, seniority, and domain overlap.\n"
+        "Calibration: a score of 7+ means the candidate could credibly apply "
+        "today — same role family AND overlapping core skills. A posting in a "
+        "different role family (e.g. a sales or recruiting role for an "
+        "engineer) must score 3 or below even if the industry or tech stack "
+        "overlaps. Adjacent-but-different roles cap at 5. Do not inflate "
+        "scores to be encouraging; a low score is useful information.\n\n"
         "Respond with ONLY a JSON object, no prose and no markdown fences, in "
         'exactly this shape:\n'
         '{"scores": [{"id": <job id>, "score": <0-10>, '

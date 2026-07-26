@@ -11,6 +11,7 @@ import html
 
 import requests
 
+from .ids import stable_id
 from .remotive import Job
 
 API_URL = "https://remoteok.com/api"
@@ -39,7 +40,8 @@ def _to_job(raw: dict) -> Job:
     try:
         job_id = int(raw.get("id", 0))
     except (TypeError, ValueError):
-        job_id = abs(hash(raw.get("slug") or raw.get("url"))) % (10**9)
+        # Must be stable across runs — alert dedup is keyed on it (see ids.py).
+        job_id = stable_id(str(raw.get("slug") or raw.get("url")))
     tags = raw.get("tags") or []
     return Job(
         id=job_id,

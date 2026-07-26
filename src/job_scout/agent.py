@@ -3,8 +3,10 @@
 A deliberately small but genuine agent: it *perceives* (search + score), *acts*
 (decide which postings are alert-worthy), *remembers* (the queries it has already
 tried), and *self-corrects* (derives a fresh query and goes again when a round
-returns too few good matches). It stops when it has enough good matches or runs
-out of rounds.
+returns too few good matches). It stops when it has enough good matches, when
+the search looks hopeless (two consecutive queries surfacing nothing new, or
+zero good matches after two full rounds — Week 7 fixes, see
+docs/evaluation.md §9), or when it runs out of rounds.
 
     derive query ─▶ search ─▶ score ─▶ enough good matches? ──yes─▶ done
          ▲                                   │
@@ -28,7 +30,7 @@ class RoundLog:
     query: str
     n_jobs: int
     n_good: int
-    scorer: str  # "claude" or "fallback" — which path scored this round
+    scorer: str  # "claude" or "fallback" — or "none" if nothing new to score
     job_ids: list[int] = field(default_factory=list)  # postings this round surfaced
 
 
@@ -39,6 +41,10 @@ class AgentResult:
     alerts: list[ScoredJob]              # postings at/above the alert threshold
     tried_queries: list[str]
     rounds: list[RoundLog] = field(default_factory=list)
+    # Why the loop ended: "target_met" (enough good matches), "exhausted"
+    # (consecutive rounds surfaced nothing new — the corpus has no more to
+    # offer this résumé), "no_new_queries", or "max_rounds".
+    stop_reason: str = "max_rounds"
 
     @property
     def top(self) -> list[ScoredJob]:
@@ -73,6 +79,8 @@ def run_agent(
     seen: dict[int, ScoredJob] = {}
     tried: set[str] = set()
     rounds: list[RoundLog] = []
+    stop_reason = "max_rounds"
+    dead_rounds = 0  # consecutive rounds that surfaced nothing new
 
     conn_cm = db.connect(db_path) if db_path else None
     conn = conn_cm.__enter__() if conn_cm else None
@@ -91,6 +99,7 @@ def run_agent(
                 )
                 query_key = query.strip().lower()
                 if query_key in tried:
+                    stop_reason = "no_new_queries"
                     break  # nothing new to try
             tried.add(query_key)
             if conn is not None:
@@ -98,14 +107,21 @@ def run_agent(
 
             say(f"round {round_no}/{max_rounds}: searching the job corpus for {query!r}...")
             jobs = tools.search_jobs(query, limit=jobs_per_round)
-            say(f"  {len(jobs)} candidates — scoring against the résumé (Claude, ~30-60s)...")
-            scored = tools.score_jobs(
-                resume_text, jobs, claude_path=claude_path, home=home, model=model
-            )
+            # Only unseen postings go to the scorer — re-scoring repeats wastes
+            # a Claude call and can only churn scores we already have.
+            new_jobs = [j for j in jobs if j.id not in seen]
+            if new_jobs:
+                say(f"  {len(new_jobs)} new candidate(s) — scoring against the "
+                    "résumé (Claude, ~30-60s)...")
+                scored = tools.score_jobs(
+                    resume_text, new_jobs, claude_path=claude_path, home=home,
+                    model=model,
+                )
+            else:
+                say("  no new candidates for this query")
+                scored = []
             for s in scored:
-                # Keep the better score if we have seen this posting before.
-                if s.job.id not in seen or s.score > seen[s.job.id].score:
-                    seen[s.job.id] = s
+                seen[s.job.id] = s
                 if conn is not None:
                     db.upsert_job(
                         conn, job_id=s.job.id, title=s.job.title,
@@ -114,7 +130,7 @@ def run_agent(
                     )
 
             n_good = sum(1 for s in seen.values() if s.score >= good_threshold)
-            scorer = scored[0].source if scored else "fallback"
+            scorer = scored[0].source if scored else "none"
             rounds.append(RoundLog(query, len(jobs), n_good, scorer,
                                    [j.id for j in jobs]))
             best = max((s.score for s in seen.values()), default=0.0)
@@ -123,7 +139,30 @@ def run_agent(
 
             if n_good >= target_good:
                 say(f"  target of {target_good} good matches reached — stopping early")
+                stop_reason = "target_met"
                 break  # enough good matches — stop early
+
+            # Hopelessness checks (Week 7, from the Week 6 eval) — stop instead
+            # of burning the remaining rounds' Claude calls on a search that
+            # cannot improve:
+            # (a) two queries in a row surfaced nothing new — the corpus has no
+            #     more to offer this résumé;
+            # (b) two full rounds produced not a single good match — new
+            #     postings keep appearing but none are relevant. (A no-increase
+            #     rule would be too aggressive: in the Week 7 eval run,
+            #     python_backend plateaued at 2 good for two rounds and then
+            #     found its third.)
+            dead_rounds = dead_rounds + 1 if not new_jobs else 0
+            if dead_rounds >= 2:
+                say("  two dead-end queries in a row — corpus exhausted for "
+                    "this résumé, stopping")
+                stop_reason = "exhausted"
+                break
+            if round_no >= 2 and n_good == 0:
+                say(f"  still no match >= {good_threshold} after {round_no} "
+                    "rounds — nothing relevant in today's corpus, stopping")
+                stop_reason = "exhausted"
+                break
 
             # Self-correct: derive a different query for the next round. Skipped
             # on the last round — the eval harness caught that deriving here too
@@ -147,4 +186,5 @@ def run_agent(
         alerts=alerts,
         tried_queries=sorted(tried),
         rounds=rounds,
+        stop_reason=stop_reason,
     )

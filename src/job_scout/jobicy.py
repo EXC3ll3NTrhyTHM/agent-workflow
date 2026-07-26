@@ -13,6 +13,7 @@ import html
 
 import requests
 
+from .ids import stable_id
 from .remotive import Job
 
 API_URL = "https://jobicy.com/api/v2/remote-jobs"
@@ -39,7 +40,8 @@ def _to_job(raw: dict) -> Job:
     try:
         job_id = int(raw.get("id", 0))
     except (TypeError, ValueError):
-        job_id = abs(hash(raw.get("jobSlug") or raw.get("url"))) % (10**9)
+        # Must be stable across runs — alert dedup is keyed on it (see ids.py).
+        job_id = stable_id(str(raw.get("jobSlug") or raw.get("url")))
     # jobIndustry/jobLevel/jobType are lists or strings; merge them into the
     # category field so the client-side filter sees them as tags.
     tags: list[str] = []

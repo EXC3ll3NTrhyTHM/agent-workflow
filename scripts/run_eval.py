@@ -86,9 +86,11 @@ def main() -> int:
             verbose=True,
         )
         full_wall = time.monotonic() - t0
+        # "none" rounds (nothing new to score) are fine; "fallback" means the
+        # Claude call failed and the numbers measure the wrong thing.
         scorers = {r.scorer for r in full.rounds}
-        if scorers != {"claude"}:
-            print(f"  WARNING: non-claude scorer in full arm ({scorers}) — "
+        if "fallback" in scorers:
+            print(f"  WARNING: fallback scorer in full arm ({scorers}) — "
                   "this case's full-arm numbers measure the fallback, not the agent.",
                   flush=True)
 
@@ -195,7 +197,7 @@ def main() -> int:
 
 def render_markdown(results: dict) -> str:
     lines = [
-        "# Week 6 Evaluation Results",
+        "# Evaluation Results",
         "",
         f"Corpus size at run time: {results['corpus_size']} unique postings.",
         "",

@@ -71,10 +71,24 @@ def _run_scan(cfg: Config, resume_path: str) -> int:
 
     print(f"Tried queries: {', '.join(result.tried_queries)}")
     print(f"Postings seen: {len(result.scored)}\n")
-    print("Top matches:")
+
+    good = [s for s in result.scored if s.score >= 7.0]
+    if not result.scored:
+        print("No postings matched this résumé's queries at all — the job "
+              "boards have nothing relevant right now. Try again tomorrow.")
+    elif not good:
+        # Be honest about scarcity rather than dressing up weak matches
+        # (Week 6 eval: padding was the #2 failure mode).
+        print("Nothing scored 7+ today — the closest postings are below, "
+              "but none are a real match:")
+    else:
+        print("Top matches:")
     for s in result.scored[:10]:
         print(f"  {s.score:4.1f}  {s.job.title}  @ {s.job.company}  [{s.source}]")
         print(f"        {s.job.url}")
+    if result.stop_reason == "exhausted":
+        print("\n(search stopped early: repeated queries found nothing new "
+              "in today's corpus)")
 
     if result.alerts:
         print(f"\n{len(result.alerts)} alert-worthy (>= {cfg.alert_threshold}):")
