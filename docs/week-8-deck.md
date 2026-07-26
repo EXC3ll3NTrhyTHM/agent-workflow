@@ -38,21 +38,9 @@ Your résumé is the standing search. An email from the system means **worth you
 
 <!-- SLIDE 3: System Architecture — walk through in 90 seconds -->
 
-## Architecture
+## Architecture — one nightly cron run
 
-```
-            ┌───────────────── nightly cron, home server ─────────────────┐
-            │                                                             │
-résumé ──▶ derive query ──▶ search corpus ──▶ score 0-10 ──▶ enough good? │
- (PDF/md)    (Claude)       (5 feeds, ~700    (Claude)       │yes    │no  │
-            │                jobs, local)                    ▼       ▼    │
-            │                    ▲                       alert ≥8  hopeless?
-            │                    └── refine query ◀───── + pitch     │──▶ stop, say
-            │                        (never repeat)      (email)         "nothing today"
-            └─────────────────────────────────────────────────────────────┘
-        SQLite remembers: every score, every tried query, what was already alerted
-        Sundays: --digest emails the 6.5-8 "worth a look" band. No LLM, DB only.
-```
+![w:1120](architecture.svg)
 
 <!-- 90s: résumé in → Claude derives query → local search over 5 merged
      feeds → Claude scores each NEW posting → ≥8 alerts with pitch bullets →
