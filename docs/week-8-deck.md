@@ -145,31 +145,48 @@ All 4 remaining fails had ≤2 relevant postings **in the entire 710-posting cor
 
 ---
 
-## Demo
+## Demo: one success, one failure
 
-1. `job-scout resume.pdf` — live scan: watch it derive a query, search, score, refine
-2. The honest-scarcity path: a niche résumé → "nothing scored 7+ today" + early stop
-3. The alert email: score, reasoning, and the three pitch bullets
-4. `run_eval.py` results: the before/after table
+**Success** — `job-scout resume.pdf`, live: watch it derive a query, search,
+score, refine, stop at 3 good matches → the alert email with pitch bullets
+
+**Failure** — the technical-writer résumé, live: zero relevant postings exist →
+*"nothing scored 7+ today"*, stops after 2 rounds instead of pretending
+
+An agent you can trust is one that can come back empty-handed.
 
 **Questions?**
 
 <!-- ============================================================
-DEMO FLOW PLAN (for this week's Zoom peer feedback — not a slide)
+FINAL DEMO RUN-OF-SHOW — 8 min demo + 4 min Q&A (not a slide)
 
-Proposed flow (~5 min):
-1. 30s framing: résumé in, email out, nothing in between (slide 3)
-2. LIVE: job-scout with my real résumé — narrate the agent loop while
-   Claude calls run (~90s of real latency; have yesterday's output in a
-   second terminal in case wifi/Claude is slow)
-3. LIVE or canned: technical-writer fixture — the honest "nothing today"
-   path + exhausted stop (this is the differentiator; nobody else's
-   demo will show their agent declining to answer)
-4. Screenshot: a real alert email with pitch bullets
-5. 45s: the eval story — 17% → feasibility → fixes → Week 7 numbers
+0:00–0:45  Framing: résumé in, email out, nothing in between (slide 3).
+0:45–4:00  SUCCESS CASE, LIVE: job-scout with my real résumé.
+           Narrate the loop during Claude latency (corpus warm-up
+           ~15s first). While it runs, flip to the architecture
+           slide. Finish on the terminal's ranked list, then the
+           alert email screenshot (score + reasoning + 3 pitch
+           bullets).
+4:00–6:00  FAILURE CASE, LIVE:
+           job-scout tests/fixtures/resume_technical_writer.md
+           — honest scarcity: "nothing scored 7+ today", exhausted
+           stop at round 2. Say the slide's last line out loud.
+6:00–7:30  The eval story, fast: 17% → feasibility cut → 3 fixes →
+           before/after table (slides 7-10).
+7:30–8:00  Lessons slide, one breath each. Land on "evaluate before
+           optimizing."
 
-What I plan to CUT (candidates for peer feedback):
-- The digest tier (mention in one sentence, don't demo)
-- The Remotive CDN war story (keep as a backup slide if asked)
-- Cron/scheduling details
+SAFETY NET: keep a second terminal with a completed run of both
+cases scrolled and ready in case wifi/Claude stalls.
+Set EMAIL_DRY_RUN=1 for the live runs so no real email fires
+mid-demo.
+
+Q&A backup talking points:
+- Remotive CDN war story (slide 5)
+- Why no framework: plain loop, linear control flow, easier to
+  test offline and run under cron
+- Judge validity: disjoint prompts, hand-written rubrics, 28/30
+  manual spot-check agreement
+- Cost per scan: ~4-6 Claude calls; already-seen postings are
+  never re-scored
 ============================================================ -->

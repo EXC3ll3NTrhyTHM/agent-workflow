@@ -1,4 +1,4 @@
-# Job Scout Agent — Final Report (Draft)
+# Job Scout Agent — Final Report
 
 Name: Blake Simpson · Track: Track 3 — Agent · Repo: https://github.com/EXC3ll3NTrhyTHM/agent-workflow
 
@@ -58,7 +58,7 @@ The agent is a deliberately small but genuine agent loop (`src/job_scout/agent.p
 | State | `db.py` (SQLite) | Ranked listings, tried queries, alert dedup, digest window; additive migrations |
 | Notifications | `alerts.py` | Instant alerts + weekly digest via Gmail SMTP; dry-run mode without credentials |
 | Scheduling | `scripts/install_cron.sh` | Nightly scan + weekly digest on a home server; launchd variant for laptops |
-| Evaluation | `evaluation.py`, `scripts/run_eval.py` | 12-case suite with an independent LLM judge (§4) |
+| Evaluation | `evaluation.py`, `scripts/run_eval.py` | 12-case suite with an independent LLM judge (§5) |
 
 ### Design decisions that mattered
 
@@ -90,9 +90,76 @@ The agent is a deliberately small but genuine agent loop (`src/job_scout/agent.p
 | 4 | Midpoint demo: email alerts with dedup; multi-source corpus after diagnosing Remotive's broken search; score-stability measurement (mean drift ≈ 1 point) |
 | 5 | The agent runs itself: cron scheduling on a home server, instant alerts with Claude-drafted pitches, weekly digest tier |
 | 6 | Evaluation: 12-case suite, LLM judge with failure taxonomy, three-arm comparison (full / no-refinement / no-Claude), results in `docs/eval/` |
-| 7 | Acted on the eval: corpus ×3, honest scarcity handling, hopelessness-aware stop rule; re-ran the suite to measure the delta (§5) |
+| 7 | Acted on the eval: corpus ×3, honest scarcity handling, hopelessness-aware stop rule; re-ran the suite to measure the delta (§6) |
 
-## 4. Evaluation methodology
+## 4. Implementation highlights
+
+Three technical challenges shaped the code more than any feature work.
+
+**Challenge 1: knowing when to give up.** The naive loop ("refine until you
+hit the round cap") burned ~6 Claude calls per run on résumés the corpus
+simply couldn't serve, then presented weak matches confidently. The final stop
+logic distinguishes *success*, *exhaustion*, and *hopelessness* — and the
+exact thresholds came from evaluation data, not intuition
+(`src/job_scout/agent.py`):
+
+```python
+if n_good >= target_good:
+    stop_reason = "target_met"
+    break
+# (a) two queries in a row surfaced nothing new — the corpus has no
+#     more to offer this résumé;
+dead_rounds = dead_rounds + 1 if not new_jobs else 0
+if dead_rounds >= 2:
+    stop_reason = "exhausted"
+    break
+# (b) two full rounds produced not a single good match — new postings
+#     keep appearing but none are relevant.
+if round_no >= 2 and n_good == 0:
+    stop_reason = "exhausted"
+    break
+```
+
+A tempting stricter rule — stop when good-match count fails to *increase* for
+two rounds — was rejected against per-round eval data: one case plateaued at
+2 good matches for two rounds and found its third in round 3.
+
+**Challenge 2: searching text without lying.** Plain substring matching let
+"ml" hit "html" and "api" hit "therapist", quietly filling results with
+garbage; and when nothing matched at all, an early version padded with the
+head of the corpus. The final matcher requires word-start hits and returns an
+honest empty list (`src/job_scout/jobs.py`):
+
+```python
+# Terms match at word starts only ("api" matches "APIs" but not
+# "therapist"; "ml" matches "MLOps" but not "html").
+patterns = [re.compile(rf"(?<![a-z0-9]){re.escape(t)}") for t in terms]
+...
+if not ranked:
+    return []   # honest scarcity — padding here produced confident
+                # wrong top-5s (Week 6 eval, wrong-role-family misses)
+```
+
+**Challenge 3: degrading without deceiving.** The pipeline must survive
+Claude being unavailable (rate limits, cron host misconfiguration) without
+pretending nothing happened. Every LLM-backed tool has a deterministic
+fallback whose results are *labelled*, so a degraded run is visible in the
+output, the DB, and the eval (`src/job_scout/tools.py`):
+
+```python
+@dataclass
+class ScoredJob:
+    job: Job
+    score: float   # 0-10 match against the résumé
+    reasoning: str
+    source: str    # "claude" or "fallback" — never silently swapped
+```
+
+The same mechanism doubles as the evaluation's no-LLM baseline: pointing
+`claude_path` at a nonexistent binary drives every tool down its fallback
+path, turning "the agent without Claude" into a one-line ablation.
+
+## 5. Evaluation methodology
 
 (Condensed from `docs/evaluation.md`, which has the full detail.)
 
@@ -119,7 +186,7 @@ numbers, not raise them).
 precision@5, step efficiency (rounds used, early-stop rate), and error
 recovery (of cases where round 1 wasn't enough, how many refinement rescued).
 
-## 5. Results
+## 6. Results
 
 ### Week 6: the diagnosis
 
@@ -204,7 +271,7 @@ Reading the delta against the Week 6 diagnosis:
   precisely the Week 6 conclusion ("supply before smarts") validated by
   intervention.
 
-## 6. Limitations and threats to validity
+## 7. Limitations and threats to validity
 
 - **LLM-as-judge**: judge and scorer are both Claude models; a shared blind
   spot would inflate scores. Mitigated by disjoint prompts, hand-written
@@ -221,7 +288,7 @@ Reading the delta against the Week 6 diagnosis:
   remote, tech-adjacent. A non-tech résumé gets honest scarcity reporting now,
   but the fix for coverage is more/better sources, not agent changes.
 
-## 7. Lessons learned
+## 8. Lessons learned
 
 1. **Evaluate before optimizing — the eval reversed my priorities.** Before
    Week 6 the obvious next steps looked like prompt and loop improvements. The
@@ -244,7 +311,7 @@ Reading the delta against the Week 6 diagnosis:
    fancier — every one of these made the system easier to run under cron,
    test offline, and demo.
 
-## 8. Future work
+## 9. Future work
 
 - Per-profile source selection (the corpus is tech-heavy; a technical-writer
   résumé deserves writing-focused feeds).
